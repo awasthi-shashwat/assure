@@ -1,6 +1,8 @@
 package com.constructWeek3.assure.entity;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -9,17 +11,19 @@ import java.util.Set;
 
 @Entity
 @NoArgsConstructor
+@Getter
+@Setter
 @ToString
 public class Policy {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long policyId;
-    private String name;
-    private String room_rent_limit;
-    private Float claim_bonus;
-    private String ped_waiting_period; //waiting period of pre-existing-disease cover
-    private Float copay_percent;
+    private String policyName;
+    private String roomRentLimit;
+    private Float claimBonus;
+    private String pedWaitingPeriod; //waiting period of pre-existing-disease cover
+    private Float copayPercent;
     private Boolean isCriticalIllnessCovered;
     private Boolean isMaternityCovered;
     private Boolean isRestorationBenefitsCovered;
