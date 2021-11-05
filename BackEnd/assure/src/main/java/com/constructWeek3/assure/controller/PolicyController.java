@@ -20,6 +20,7 @@ public class PolicyController {
     @Autowired
     private PolicyService policyService;
 
+
     @PostMapping("/explore/policies")
     public ResponseEntity<List<PolicyDTO>> getPolicies(@RequestBody ageDTO ages) {
         List<PolicyDTO> policyDTOList = policyService.getPolicies(ages);
