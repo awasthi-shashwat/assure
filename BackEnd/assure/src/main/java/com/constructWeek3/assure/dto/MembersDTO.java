@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Data
 public class MembersDTO {
 
-    private Long member_id;
+
     private String name;
     private String relation_with_user;
     private String DOB ;

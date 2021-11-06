@@ -58,6 +58,19 @@ public class CustomizedResponseEntityException extends ResponseEntityExceptionHa
         return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
+    // (Login)
+    // Handles if the password and email is incorrect
+    @ExceptionHandler(IncorrectPasswordAndEmail.class)
+    public final ResponseEntity handleIncorrectPasswordAndEmailException(Exception e, WebRequest webRequest){
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
+                e.getMessage(), webRequest.getDescription(false));
+
+        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+
+
 
 
     //Exception for incorrect path
