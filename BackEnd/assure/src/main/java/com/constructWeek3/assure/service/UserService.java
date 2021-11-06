@@ -2,12 +2,11 @@ package com.constructWeek3.assure.service;
 
 import com.constructWeek3.assure.AssureApplication;
 import com.constructWeek3.assure.dto.AuthenticateUserDTO;
+import com.constructWeek3.assure.dto.LoginDTO;
 import com.constructWeek3.assure.dto.UserDTO;
 import com.constructWeek3.assure.entity.PhoneOTP;
 import com.constructWeek3.assure.entity.User;
-import com.constructWeek3.assure.exception.EmptyOTP;
-import com.constructWeek3.assure.exception.IncorrectOTP;
-import com.constructWeek3.assure.exception.UserExists;
+import com.constructWeek3.assure.exception.*;
 import com.constructWeek3.assure.modelmapper.ModelMapperClass;
 import com.constructWeek3.assure.repository.PhoneOTP_Repository;
 import com.constructWeek3.assure.repository.UserRepository;
@@ -23,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,6 +42,8 @@ public class UserService {
     public static final String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
     public static final String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
 
+
+    // Authenticating the user
     public void authenticateUser(MappingJacksonValue mappingJacksonValue) {
 
         AuthenticateUserDTO authenticateUserDTO = modelMapperClass.modelMapper()
@@ -71,8 +73,10 @@ public class UserService {
 
             logger.info(otp);
 
+            // method to send sms to the user
             sendSMS(authenticateUserDTO.getUserMobile(),otp);
 
+            // saving mobile no. and otp for authentication
             phoneOTP_repository.save(new PhoneOTP(authenticateUserDTO.getUserMobile(), otp));
         }
         else{
@@ -88,6 +92,8 @@ public class UserService {
 
     }
 
+
+    //Registering the user
     public Long registerUser(UserDTO userDTO){
 
         User user = null;
@@ -111,6 +117,9 @@ public class UserService {
 
                 userRepository.save(user);
 
+                //deleting temporary mobile no. and otp
+                phoneOTP_repository.delete(p);
+
             }
             else if(p.getUserMobile().equals(userDTO.getUserMobile()) && (!p.getOtp().equals(userDTO.getOtp()))){
                 throw new IncorrectOTP("Incorrect OTP entered");
@@ -121,6 +130,43 @@ public class UserService {
         return user.getUserId();
     }
 
+    // After login returning the user details
+    public List getUserDetails(LoginDTO loginDTO) {
+        List<User> userList = userRepository.findAll();
+
+        List list = new ArrayList();
+
+        // To check if the email exists
+        boolean check = false;
+
+        for(User u : userList){
+            // checking and adding the policies and claims to the arraylist
+            if(u.getUserEmail().equals(loginDTO.getEmail())
+                    && u.getUserPass().equals(loginDTO.getPass())){
+
+                //yet to be filled, here policies and claims will be
+                // added to the list
+
+//                list.add(u.getPolicyList());
+
+                check = true;
+                break;
+            }
+            else if(u.getUserEmail().equals(loginDTO.getEmail())
+                    && (!u.getUserPass().equals(loginDTO.getPass()))){
+                throw new IncorrectPassword("Password is incorrect");
+            }
+        }
+
+        // If the userlist is empty or the email is not registered
+        if (userList.isEmpty() || check == false){
+            throw new EmailNotFound("Email not registered");
+        }
+
+        return list;
+    }
+
+    //Random 4 digit number generator for otp
     private String otpGenerator(){
         return Math.round(Math.random()*10)
                 + "" + Math.round(Math.random()*10)
@@ -128,6 +174,7 @@ public class UserService {
                 + "" + Math.round(Math.random()*10);
     }
 
+    // Send otp to the user
     private void sendSMS(String mobile, String otp){
             Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
             Message.creator(
@@ -136,4 +183,5 @@ public class UserService {
                             "Your OTP is : " + otp)
                     .create();
     }
+
 }
