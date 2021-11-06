@@ -19,4 +19,5 @@ public class UserDTO {
     private String userMobile;
     private String userPass;
     private String otp;
+
 }

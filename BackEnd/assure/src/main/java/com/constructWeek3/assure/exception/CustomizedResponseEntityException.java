@@ -59,6 +59,29 @@ public class CustomizedResponseEntityException extends ResponseEntityExceptionHa
     }
 
 
+    // (Login)
+    // Handles if the password is incorrect
+    @ExceptionHandler(IncorrectPassword.class)
+    public final ResponseEntity handleIncorrectPasswordException(Exception e, WebRequest webRequest){
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
+                e.getMessage(), webRequest.getDescription(false));
+
+        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+
+    // Handles if the email is not registered
+    @ExceptionHandler(EmailNotFound.class)
+    public final ResponseEntity handleEmailNotFoundException(Exception e, WebRequest webRequest){
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
+                e.getMessage(), webRequest.getDescription(false));
+
+        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+
 
     //Exception for incorrect path
     @Override

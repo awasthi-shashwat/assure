@@ -1,6 +1,7 @@
 package com.constructWeek3.assure.controller;
 
 import com.constructWeek3.assure.AssureApplication;
+import com.constructWeek3.assure.dto.LoginDTO;
 import com.constructWeek3.assure.dto.UserDTO;
 import com.constructWeek3.assure.service.UserService;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -26,9 +28,10 @@ public class UserController {
     UserService userService;
 
     //Authenticating and registering a new user
-    @PostMapping("user/authenticate")
+    @PostMapping("/user/authenticate")
     public ResponseEntity<Object> authenticateUser(@RequestBody UserDTO userDTO){
 
+        // filtering out and sending just the user mail and mobile for authentication and otp transfer to the user
         if(userDTO.getOtp() == null){
 
             SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("userEmail","userMobile");
@@ -46,6 +49,7 @@ public class UserController {
 
         }
 
+        // When the otp is provided, user is verified and registered in database
         Long id = userService.registerUser(userDTO);
 
         URI location = ServletUriComponentsBuilder
@@ -55,6 +59,15 @@ public class UserController {
                 .toUri();
 
         return ResponseEntity.created(location).body("User registered");
+    }
+
+    // Login request
+    @PostMapping("/user/getUser")
+    public ResponseEntity getUserDetails(@RequestBody LoginDTO loginDTO){
+
+        List list = userService.getUserDetails(loginDTO);
+
+        return new ResponseEntity(list, HttpStatus.FOUND);
     }
 
 }
