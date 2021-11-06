@@ -27,14 +27,14 @@ public class User {
     private String userPass;
 
     @OneToMany
-    private List<Policy> policyList = new ArrayList<>();
+    private List<PolicyBookings> policyBookingsList = new ArrayList<>();
 
-    public void setPolicy(Policy policy){
-        this.policyList.add(policy);
+    public void setPolicyBookings(PolicyBookings policyBookings){
+        this.policyBookingsList.add(policyBookings);
     }
 
-    public void removePolicy(Policy policy){
-        this.policyList.remove(policy);
+    public void removePolicyBookings(PolicyBookings policyBookings){
+        this.policyBookingsList.remove(policyBookings);
     }
 
 //    @OneToMany
