@@ -41,7 +41,7 @@ public class Policy {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Hospitals> hospitals = new HashSet<>();
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<Location> locations = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY)
