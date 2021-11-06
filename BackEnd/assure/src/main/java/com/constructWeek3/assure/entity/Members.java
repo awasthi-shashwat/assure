@@ -2,14 +2,14 @@ package com.constructWeek3.assure.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
 public class Members {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long member_id;
     private String name;
     private String relation_with_user;
@@ -19,6 +19,7 @@ public class Members {
     private String city;
     private String martial_status;
     private String email;
+    @Column(unique=true)
     private String mobile;
     private String occupation;
     private String height;

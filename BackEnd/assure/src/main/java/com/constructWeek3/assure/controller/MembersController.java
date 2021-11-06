@@ -4,6 +4,8 @@ import com.constructWeek3.assure.dto.MembersDTO;
 import com.constructWeek3.assure.entity.Members;
 import com.constructWeek3.assure.service.MembersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,16 +18,17 @@ public class MembersController {
     MembersService membersService;
 
     @GetMapping("/get/allmembers")
-    public List<MembersDTO> getallmembers(){
-        return membersService.getallmembers();
+    public ResponseEntity<List<MembersDTO>> getallmembers(){
+        return new ResponseEntity<>(membersService.getallmembers(), HttpStatus.OK);
     }
     @GetMapping("/get/member/{id}")
-    public  MembersDTO getmemberbyid(@PathVariable Long id){
-        return membersService.memberbyid(id);
+    public  ResponseEntity<MembersDTO> getmemberbyid(@PathVariable Long id){
+
+        return new ResponseEntity<>(membersService.memberbyid(id),HttpStatus.FOUND);
     }
     @PostMapping("/post/member/")
-    public String postmember(@RequestBody MembersDTO membersDTO){
-        return membersService.postmember(membersDTO);
+    public ResponseEntity<String> postmember(@RequestBody MembersDTO membersDTO){
+        return new ResponseEntity<>(membersService.postmember(membersDTO),HttpStatus.CREATED);
     }
    @PutMapping("/put/member/")
     public MembersDTO updatemember(@RequestBody MembersDTO membersDTO){
