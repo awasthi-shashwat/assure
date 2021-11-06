@@ -12,13 +12,13 @@ public class PolicyBookings {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bookingId;
-    private Date date;
+    private Date bookingDate;
     private Float coverAmount;
     private Float premium;
     private Integer coverTenure;
 
-//    @OneToMany
-//    private HashSet<Members> members = new HashSet<Members>();
+    @OneToMany
+    private HashSet<Members> members = new HashSet<Members>();
 
     @JsonIgnore
 
