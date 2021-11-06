@@ -74,7 +74,7 @@ public class UserService {
             logger.info(otp);
 
             // method to send sms to the user
-//            sendSMS(authenticateUserDTO.getUserMobile(),otp);
+            sendSMS(authenticateUserDTO.getUserMobile(),otp);
 
             // saving mobile no. and otp for authentication
             phoneOTP_repository.save(new PhoneOTP(authenticateUserDTO.getUserMobile(), otp));
@@ -85,7 +85,7 @@ public class UserService {
 
             logger.info(otp);
 
-//            sendSMS(authenticateUserDTO.getUserMobile(),otp);
+            sendSMS(authenticateUserDTO.getUserMobile(),otp);
 
             phoneOTP_repository.save(new PhoneOTP(authenticateUserDTO.getUserMobile(), otp));
         }
