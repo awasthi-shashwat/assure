@@ -6,8 +6,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class ModelMapperClass {
 
-    public ModelMapper modelMapper(){
+    public static ModelMapper modelMapper(){
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper;
     }
+
 }
