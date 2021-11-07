@@ -23,13 +23,13 @@ public class Members {
     private String gender;
     private Boolean is_taking_medicines;
     private String city;
-    private String martial_status;
+    private Boolean martial_status;
     private String email;
     @Column(unique=true)
     private String mobile;
     private String occupation;
     private String height;
-    private String weight;
+    private Float weight;
 
     @JsonIgnore
     @ManyToOne

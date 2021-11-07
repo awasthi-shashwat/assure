@@ -28,4 +28,20 @@ public class CustomizedException extends ResponseEntityExceptionHandler {
         ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(InvalidEmailException.class)
+    public final ResponseEntity<Object> handleInvalidEmailException(Exception e, WebRequest request) {
+        ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(ex, HttpStatus.NOT_ACCEPTABLE);
+    }
+    @ExceptionHandler(InvalidMobileNumberException.class)
+    public final ResponseEntity<Object> handleInvalidMobileException(Exception e, WebRequest request) {
+        ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(ex, HttpStatus.EXPECTATION_FAILED);
+    }
+    @ExceptionHandler(InvalidGenderException.class)
+    public final ResponseEntity<Object> handleInvalidGenderException(Exception e, WebRequest request) {
+        ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
+    }
 }
