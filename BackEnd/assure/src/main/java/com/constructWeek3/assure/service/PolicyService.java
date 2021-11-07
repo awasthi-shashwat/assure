@@ -1,17 +1,15 @@
 package com.constructWeek3.assure.service;
 
 import com.constructWeek3.assure.dto.PolicyDTO;
-import com.constructWeek3.assure.dto.ageDTO;
+import com.constructWeek3.assure.dto.AgeDTO;
 import com.constructWeek3.assure.entity.Policy;
 import com.constructWeek3.assure.exception.InvalidAgeOfMemberException;
-import com.constructWeek3.assure.modelmapper.ModelMapperClass;
 import com.constructWeek3.assure.repository.PolicyRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,7 +30,7 @@ public class PolicyService extends ModelMapper {
         return 0.0F;
     }
 
-    public List<PolicyDTO> getPolicies(ageDTO ages) {
+    public List<PolicyDTO> getPolicies(AgeDTO ages) {
 
 //        Long user = ages.getUserId();
 

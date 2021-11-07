@@ -9,18 +9,17 @@ import java.util.Date;
 @Data
 public class MembersDTO {
 
-
     private String name;
     private String relation_with_user;
     private Date DOB ;
     private String gender;
     private Boolean is_taking_medicines;
     private String city;
-    private String martial_status;
+    private Boolean martial_status; //true for married
     private String email;
     private String mobile;
     private String occupation;
     private String height;
-    private String weight;
+    private Float weight;
 //    PolicyBookings policyBookings;
 }
