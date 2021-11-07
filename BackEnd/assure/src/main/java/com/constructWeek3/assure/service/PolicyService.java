@@ -34,6 +34,8 @@ public class PolicyService extends ModelMapper {
 
     public List<PolicyDTO> getPolicies(ageDTO ages) {
 
+//        Long user = ages.getUserId();
+
         Integer ageSelf = ages.getAgeOfSelf();
         Integer ageFather = ages.getAgeOfFather();
         Integer ageMother = ages.getAgeOfMother();

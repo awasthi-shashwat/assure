@@ -1,0 +1,35 @@
+package com.constructWeek3.assure.dto;
+
+import lombok.*;
+
+import java.util.*;
+
+@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+public class PolicyBookingsGetListDTO {
+
+    private Long bookingId;
+    private Date bookingDate;
+    private Float coverAmount;
+    private Float premium;
+    private Integer coverTenure;
+    private String policyName;
+    private String roomRentLimit;
+    private Float claimBonus;
+    private String pedWaitingPeriod; //waiting period of pre-existing-disease cover
+    private Float copayPercent;
+    private Boolean isCriticalIllnessCovered;
+    private Boolean isMaternityCovered;
+    private Boolean isRestorationBenefitsCovered;
+
+    List<ProfileMemberDTO> memberDTOSet = new ArrayList<>();
+
+    public void addMember(ProfileMemberDTO memberDTO) {
+        memberDTOSet.add(memberDTO);
+    }
+
+}

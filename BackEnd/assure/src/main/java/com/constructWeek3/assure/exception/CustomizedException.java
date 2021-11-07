@@ -17,4 +17,15 @@ public class CustomizedException extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(UserDoesNotExistException.class)
+    public final ResponseEntity<Object> handleAuthenticationException(Exception e, WebRequest request) {
+        ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(ex, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(PolicyDoesNotExistException.class)
+    public final ResponseEntity<Object> handlePolicyException(Exception e, WebRequest request) {
+        ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
+    }
 }

@@ -20,6 +20,9 @@ public class PolicyController {
     @Autowired
     private PolicyService policyService;
 
+//    //Get a policy by policyId
+//    @GetMapping("/policy/{policyId}")
+//    public ResponseEntity<>
 
     @PostMapping("/explore/policies")
     public ResponseEntity<List<PolicyDTO>> getPolicies(@RequestBody ageDTO ages) {

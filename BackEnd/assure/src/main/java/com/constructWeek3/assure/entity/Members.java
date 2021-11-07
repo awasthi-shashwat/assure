@@ -1,19 +1,25 @@
 package com.constructWeek3.assure.entity;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class Members {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long member_id;
     private String name;
     private String relation_with_user;
-    private String DOB ;
+    private Date DOB ;
     private String gender;
     private Boolean is_taking_medicines;
     private String city;
@@ -24,6 +30,8 @@ public class Members {
     private String occupation;
     private String height;
     private String weight;
+
+    @JsonIgnore
     @ManyToOne
     PolicyBookings policyBookings;
 

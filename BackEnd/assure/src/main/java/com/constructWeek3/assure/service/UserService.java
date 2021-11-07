@@ -39,9 +39,12 @@ public class UserService {
 
     static Logger logger = LoggerFactory.getLogger(AssureApplication.class);
 
-    public static final String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
-    public static final String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
+    // Twilio string saved as environment variables are accessed here
+//    public static final String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
+//    public static final String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
 
+    public static final String ACCOUNT_SID = "ACae439ad4f447f658ad2c34999540ff34";
+    public static final String AUTH_TOKEN = "68aeb1e333ea5c6efd11a80def2b73ee";
 
     // Authenticating the user
     public void authenticateUser(MappingJacksonValue mappingJacksonValue) {
@@ -154,13 +157,13 @@ public class UserService {
             }
             else if(u.getUserEmail().equals(loginDTO.getEmail())
                     && (!u.getUserPass().equals(loginDTO.getPass()))){
-                throw new IncorrectPassword("Password is incorrect");
+                throw new IncorrectPasswordAndEmail("Email or password is incorrect");
             }
         }
 
-        // If the userlist is empty or the email is not registered
+        // If the user-list is empty or the email is not registered
         if (userList.isEmpty() || check == false){
-            throw new EmailNotFound("Email not registered");
+            throw new IncorrectPasswordAndEmail("Email or password is incorrect");
         }
 
         return list;
@@ -168,10 +171,10 @@ public class UserService {
 
     //Random 4 digit number generator for otp
     private String otpGenerator(){
-        return Math.round(Math.random()*10)
-                + "" + Math.round(Math.random()*10)
-                + "" + Math.round(Math.random()*10)
-                + "" + Math.round(Math.random()*10);
+        return Math.round(Math.random()*9)
+                + "" + Math.round(Math.random()*9)
+                + "" + Math.round(Math.random()*9)
+                + "" + Math.round(Math.random()*9);
     }
 
     // Send otp to the user
