@@ -41,6 +41,8 @@ public class PolicyBookingsService {
     @Autowired
     private ModelMapper modelMapper;
 
+    Set<String> relations = new HashSet<>(Arrays.asList("self", "father", "mother", "son", "daughter", "spouse"));
+
     public String isValidEmail(String email) {
         int at = email.indexOf('@');
         if (at < 5) return "Your email has less than 6 characters before @ sign";
@@ -76,16 +78,25 @@ public class PolicyBookingsService {
         Optional<Policy> policy = policyRepository.findById(policyId);
         if (policy.isEmpty()) throw new PolicyDoesNotExistException("The policy that you chose does not exist, so no policy could be booked.");
 
+        Set<String> relation = new HashSet<>();
+
         Set<MembersDTO> membersDTOS = policyBookingInputDTO.getMembers();
 
         for (MembersDTO member :
                 membersDTOS) {
 
+            String rel = member.getRelation_with_user().toLowerCase();
+            if (rel.equals("son") || rel.equals("daughter"));
+            else if (!relation.isEmpty() || !(relation.contains(rel)))
+                relation.add(rel);
+            else throw new DuplicateMemberException("There cannot be two members who are your " + rel + ".");
             if (!isValidMobile(member.getMobile())) throw new InvalidMobileNumberException("Enter a correct 10 digit mobile number without starting with appending country code or 0.");
             if (!isValidGender(member.getGender())) throw new InvalidGenderException("Gender can be either male, female or transgender. (Case-Insensitive)");
             String message = isValidEmail(member.getEmail());
             if (message.length() > 0) throw new InvalidEmailException(message);
-
+            if (member.getIs_taking_medicines() == null || member.getMartial_status() == null || member.getEmail().equals("") || member.getGender().equals("") || member.getMobile().equals("") || member.getCity().equals("") || member.getDOB() == null || member.getHeight().equals("") || member.getOccupation().equals("") || member.getRelation_with_user().equals("") || member.getWeight().equals("") || member.getName().equals(""))
+                throw new InsufficientMemberDetailsException("Required Details of all members are partially provided not provided.");
+            if (!relations.contains(member.getRelation_with_user().toLowerCase())) throw new InvalidRelationException("Please enter a valid relation with user.");
         }
 
         //Processing request after validation of consistency of input data.

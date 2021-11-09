@@ -34,13 +34,45 @@ public class CustomizedException extends ResponseEntityExceptionHandler {
         ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(ex, HttpStatus.NOT_ACCEPTABLE);
     }
+
     @ExceptionHandler(InvalidMobileNumberException.class)
     public final ResponseEntity<Object> handleInvalidMobileException(Exception e, WebRequest request) {
         ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(ex, HttpStatus.EXPECTATION_FAILED);
     }
+
     @ExceptionHandler(InvalidGenderException.class)
     public final ResponseEntity<Object> handleInvalidGenderException(Exception e, WebRequest request) {
+        ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InsufficientMemberDetailsException.class)
+    public final ResponseEntity<Object> handleInsufficientDetailsException(Exception e, WebRequest request) {
+        ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(ex, HttpStatus.NO_CONTENT);
+    }
+
+    @ExceptionHandler(InvalidRelationException.class)
+    public final ResponseEntity<Object> handleInvalidRelationException(Exception e, WebRequest request) {
+        ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(ex, HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(DuplicateMemberException.class)
+    public final ResponseEntity<Object> handleDuplicateMemberException(Exception e, WebRequest request) {
+        ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(ex, HttpStatus.ALREADY_REPORTED);
+    }
+
+    @ExceptionHandler(CoverAmountNotSupportedException.class)
+    public final ResponseEntity<Object> handleCoverAmountNotSupportedException(Exception e, WebRequest request) {
+        ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CoverTenureNotSupportedException.class)
+    public final ResponseEntity<Object> handleCoverTenureNotSupportedException(Exception e, WebRequest request) {
         ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
     }
