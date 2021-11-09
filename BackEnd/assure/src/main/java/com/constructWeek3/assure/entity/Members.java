@@ -32,7 +32,7 @@ public class Members {
     private Float weight;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne()
     PolicyBookings policyBookings;
 
 }

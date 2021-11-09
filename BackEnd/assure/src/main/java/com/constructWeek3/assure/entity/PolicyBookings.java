@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -25,7 +26,7 @@ public class PolicyBookings {
     private Integer coverTenure;
 
     @OneToMany(fetch = FetchType.LAZY)
-    private HashSet<Members> members = new HashSet<Members>();
+    private Set<Members> members = new HashSet<Members>();
 
     @JsonIgnore
 
