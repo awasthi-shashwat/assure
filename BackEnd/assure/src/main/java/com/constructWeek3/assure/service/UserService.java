@@ -5,6 +5,7 @@ import com.constructWeek3.assure.dto.AuthenticateUserDTO;
 import com.constructWeek3.assure.dto.LoginDTO;
 import com.constructWeek3.assure.dto.UserDTO;
 import com.constructWeek3.assure.entity.PhoneOTP;
+import com.constructWeek3.assure.entity.PolicyBookings;
 import com.constructWeek3.assure.entity.User;
 import com.constructWeek3.assure.exception.*;
 import com.constructWeek3.assure.modelmapper.ModelMapperClass;
@@ -137,7 +138,7 @@ public class UserService {
     public List getUserDetails(LoginDTO loginDTO) {
         List<User> userList = userRepository.findAll();
 
-        List list = new ArrayList();
+        List<PolicyBookings> list = null;
 
         // To check if the email exists
         boolean check = false;
@@ -150,7 +151,9 @@ public class UserService {
                 //yet to be filled, here policies and claims will be
                 // added to the list
 
-//                list.add(u.getPolicyList());
+                list = u.getPolicyBookingsList();
+
+                logger.info(u.getPolicyBookingsList().toString());
 
                 check = true;
                 break;
