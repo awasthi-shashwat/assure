@@ -26,9 +26,9 @@ public class LocationController {
 
 
 
-//    @GetMapping("/claims/location")
-//    public List<Location> getAllLocation(){
-//         List<Location> locations = locationService.getAllLocation();
-//        return locations;
-//    }
+    @GetMapping("/claims/location")
+    public List<Location> getAllLocation(){
+         List<Location> locations = locationService.getAllLocation();
+        return locations;
+    }
 }
