@@ -4,11 +4,14 @@ import com.constructWeek3.assure.dto.MembersDTO;
 import com.constructWeek3.assure.dto.PolicyBookingInputDTO;
 import com.constructWeek3.assure.dto.PolicyBookingsGetListDTO;
 import com.constructWeek3.assure.service.PolicyBookingsService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -26,7 +29,7 @@ public class PolicyBookingController {
 
     //An user of particular userId books a policy with all it's members
     @PostMapping("/booking/{userId}/{policyId}")
-    public ResponseEntity<PolicyBookingInputDTO> bookPolicy(@PathVariable Long userId, @PathVariable Long policyId, @RequestBody PolicyBookingInputDTO policyBookingInputDTO) {
+    public ResponseEntity<PolicyBookingInputDTO> bookPolicy(@PathVariable Long userId, @PathVariable Long policyId, @RequestBody PolicyBookingInputDTO policyBookingInputDTO) throws ParseException {
         PolicyBookingInputDTO bookingInputDTO = policyBookingsService.bookPolicy(userId, policyId, policyBookingInputDTO);
         return new ResponseEntity<>(bookingInputDTO, HttpStatus.CREATED);
     }

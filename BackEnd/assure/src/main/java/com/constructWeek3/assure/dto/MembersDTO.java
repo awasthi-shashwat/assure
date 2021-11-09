@@ -11,7 +11,7 @@ public class MembersDTO {
 
     private String name;
     private String relation_with_user;
-    private Date DOB ;
+    private String dob;
     private String gender;
     private Boolean is_taking_medicines;
     private String city;

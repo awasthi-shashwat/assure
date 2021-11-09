@@ -13,12 +13,15 @@ import com.constructWeek3.assure.repository.MembersRepository;
 import com.constructWeek3.assure.repository.PolicyBookingsRepository;
 import com.constructWeek3.assure.repository.PolicyRepository;
 import com.constructWeek3.assure.repository.UserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -55,6 +58,11 @@ public class PolicyBookingsService {
         return "";
     }
 
+    public Date toDate(String date) throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+        return formatter.parse(date);
+    }
+
     public Boolean isValidMobile(String number) {
 
         Pattern mobNoPattern = Pattern.compile("[5-9][0-9]{9}");
@@ -84,7 +92,7 @@ public class PolicyBookingsService {
 
     }
 
-    public PolicyBookingInputDTO bookPolicy(Long userId, Long policyId, PolicyBookingInputDTO policyBookingInputDTO) {
+    public PolicyBookingInputDTO bookPolicy(Long userId, Long policyId, PolicyBookingInputDTO policyBookingInputDTO) throws ParseException {
 
         //Checking for any inconsistency in the input data
 
@@ -112,7 +120,7 @@ public class PolicyBookingsService {
             validateMember(member);
 
             Date d = new Date();
-            premium += policyService.ageToPremium(policy.get(),d.getYear() - member.getDOB().getYear());
+            premium += policyService.ageToPremium(policy.get(),d.getYear() - toDate(member.getDob()).getYear());
 
             String rel = member.getRelation_with_user().toLowerCase();
 
@@ -134,18 +142,23 @@ public class PolicyBookingsService {
         policyBooking.setBookingDate(new Date());
         modelMapper.map(policyBookingInputDTO, policyBooking);
 
+
+        policyBookingsRepository.save(policyBooking);
+
         for (MembersDTO member :
                 membersDTOS) {
 
             Members actualMember = new Members();
             modelMapper.map(member, actualMember);
-            actualMember.setPolicyBookings(policyBooking);
-            policyBooking.addMember(actualMember);
+//            actualMember.setPolicyBookings(policyBooking);
+
+            actualMember.setDOB(toDate(member.getDob()));
             membersRepository.save(actualMember);
+            policyBooking.addMember(actualMember);
+            policyBookingsRepository.save(policyBooking);
 
         }
 
-        policyBookingsRepository.save(policyBooking);
         return policyBookingInputDTO;
     }
 
@@ -177,7 +190,7 @@ public class PolicyBookingsService {
         if (!isValidGender(member.getGender())) throw new InvalidGenderException("Gender can be either male, female or transgender. (Case-Insensitive)");
         String message = isValidEmail(member.getEmail());
         if (message.length() > 0) throw new InvalidEmailException(message);
-        if (member.getIs_taking_medicines() == null || member.getMartial_status() == null || member.getEmail().equals("") || member.getGender().equals("") || member.getMobile().equals("") || member.getCity().equals("") || member.getDOB() == null || member.getHeight().equals("") || member.getOccupation().equals("") || member.getRelation_with_user().equals("") || member.getWeight() == 0.0F || member.getName().equals(""))
+        if (member.getIs_taking_medicines() == null || member.getMartial_status() == null || member.getEmail().equals("") || member.getGender().equals("") || member.getMobile().equals("") || member.getCity().equals("") || member.getDob() == null || member.getHeight().equals("") || member.getOccupation().equals("") || member.getRelation_with_user().equals("") || member.getWeight() == 0.0F || member.getName().equals(""))
             throw new InsufficientMemberDetailsException("Required Details of all members are partially provided not provided.");
         if (!relations.contains(member.getRelation_with_user().toLowerCase())) throw new InvalidRelationException("Please enter a valid relation with user.");
         if (!isValidName(member.getName())) throw new InvalidNameException("Name of " + member.getRelation_with_user().toLowerCase() + " is not any valid name.");
