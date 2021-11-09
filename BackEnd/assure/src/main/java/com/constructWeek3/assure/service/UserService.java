@@ -14,8 +14,8 @@ import com.constructWeek3.assure.repository.UserRepository;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.twilio.Twilio;
-import com.twilio.rest.api.v2010.account.Message;
+//import com.twilio.Twilio;
+//import com.twilio.rest.api.v2010.account.Message;
 import org.modelmapper.TypeToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -181,13 +181,13 @@ public class UserService {
     }
 
     // Send otp to the user
-    private void sendSMS(String mobile, String otp){
-            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-            Message.creator(
-                            new com.twilio.type.PhoneNumber("+91" + mobile),
-                            new com.twilio.type.PhoneNumber("+13186682959"),
-                            "Your OTP is : " + otp)
-                    .create();
-    }
+//    private void sendSMS(String mobile, String otp){
+//            Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+//            Message.creator(
+//                            new com.twilio.type.PhoneNumber("+91" + mobile),
+//                            new com.twilio.type.PhoneNumber("+13186682959"),
+//                            "Your OTP is : " + otp)
+//                    .create();
+//    }
 
 }
