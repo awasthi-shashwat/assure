@@ -39,6 +39,9 @@ public class PolicyBookingsService {
     private MembersRepository membersRepository;
 
     @Autowired
+    private PolicyService policyService;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     Set<String> relations = new HashSet<>(Arrays.asList("self", "father", "mother", "son", "daughter", "spouse"));
@@ -63,8 +66,21 @@ public class PolicyBookingsService {
 
     public Boolean isValidGender(String gender) {
 
-        gender.toLowerCase();
+        gender = gender.toLowerCase();
         return gender.equals("male") || gender.equals("female") || gender.equals("transgender");
+
+    }
+
+    public Boolean isValidName(String name) {
+
+        char ch;
+        for (int i = 0; i < name.length(); i++) {
+
+            ch = name.charAt(i);
+            if (!Character.isLetter(ch) && ch != '.' && ch != ' ') return false;
+
+        }
+        return true;
 
     }
 
@@ -78,26 +94,36 @@ public class PolicyBookingsService {
         Optional<Policy> policy = policyRepository.findById(policyId);
         if (policy.isEmpty()) throw new PolicyDoesNotExistException("The policy that you chose does not exist, so no policy could be booked.");
 
+        if (!Objects.equals(policy.get().getCoverAmount1(), policyBookingInputDTO.getCoverAmount()) && !Objects.equals(policy.get().getCoverAmount2(), policyBookingInputDTO.getCoverAmount()) && !Objects.equals(policy.get().getCoverAmount3(), policyBookingInputDTO.getCoverAmount()))
+            throw new CoverAmountNotSupportedException("Invalid cover amount specified for the chosen policy.");
+
+        if (!Objects.equals(policy.get().getTenure1(), policyBookingInputDTO.getCoverTenure()) && !Objects.equals(policy.get().getTenure2(), policyBookingInputDTO.getCoverTenure()) && !Objects.equals(policy.get().getTenure3(), policyBookingInputDTO.getCoverTenure()))
+            throw new CoverTenureNotSupportedException("Invalid cover tenure specified for the chosen policy.");
+
         Set<String> relation = new HashSet<>();
+
+        Float premium = 0.0F;
 
         Set<MembersDTO> membersDTOS = policyBookingInputDTO.getMembers();
 
         for (MembersDTO member :
                 membersDTOS) {
 
+            validateMember(member);
+
+            Date d = new Date();
+            premium += policyService.ageToPremium(policy.get(),d.getYear() - member.getDOB().getYear());
+
             String rel = member.getRelation_with_user().toLowerCase();
-            if (rel.equals("son") || rel.equals("daughter"));
-            else if (!relation.isEmpty() || !(relation.contains(rel)))
+
+            if (!(rel.equals("son") || rel.equals("daughter")) && (relation.isEmpty() || !(relation.contains(rel))))
                 relation.add(rel);
-            else throw new DuplicateMemberException("There cannot be two members who are your " + rel + ".");
-            if (!isValidMobile(member.getMobile())) throw new InvalidMobileNumberException("Enter a correct 10 digit mobile number without starting with appending country code or 0.");
-            if (!isValidGender(member.getGender())) throw new InvalidGenderException("Gender can be either male, female or transgender. (Case-Insensitive)");
-            String message = isValidEmail(member.getEmail());
-            if (message.length() > 0) throw new InvalidEmailException(message);
-            if (member.getIs_taking_medicines() == null || member.getMartial_status() == null || member.getEmail().equals("") || member.getGender().equals("") || member.getMobile().equals("") || member.getCity().equals("") || member.getDOB() == null || member.getHeight().equals("") || member.getOccupation().equals("") || member.getRelation_with_user().equals("") || member.getWeight().equals("") || member.getName().equals(""))
-                throw new InsufficientMemberDetailsException("Required Details of all members are partially provided not provided.");
-            if (!relations.contains(member.getRelation_with_user().toLowerCase())) throw new InvalidRelationException("Please enter a valid relation with user.");
+            else if (!(rel.equals("son") || rel.equals("daughter")))
+                throw new DuplicateMemberException("There cannot be two members who are your " + rel + ".");
+
         }
+
+        if (!premium.equals(policyBookingInputDTO.getPremium())) throw new InvalidPremiumException("The specified premium is not valid");
 
         //Processing request after validation of consistency of input data.
 
@@ -142,6 +168,21 @@ public class PolicyBookingsService {
         }
 
         return DTO;
+
+    }
+
+    public Boolean validateMember(MembersDTO member) {
+
+        if (!isValidMobile(member.getMobile())) throw new InvalidMobileNumberException("Enter a correct 10 digit mobile number without starting with appending country code or 0.");
+        if (!isValidGender(member.getGender())) throw new InvalidGenderException("Gender can be either male, female or transgender. (Case-Insensitive)");
+        String message = isValidEmail(member.getEmail());
+        if (message.length() > 0) throw new InvalidEmailException(message);
+        if (member.getIs_taking_medicines() == null || member.getMartial_status() == null || member.getEmail().equals("") || member.getGender().equals("") || member.getMobile().equals("") || member.getCity().equals("") || member.getDOB() == null || member.getHeight().equals("") || member.getOccupation().equals("") || member.getRelation_with_user().equals("") || member.getWeight() == 0.0F || member.getName().equals(""))
+            throw new InsufficientMemberDetailsException("Required Details of all members are partially provided not provided.");
+        if (!relations.contains(member.getRelation_with_user().toLowerCase())) throw new InvalidRelationException("Please enter a valid relation with user.");
+        if (!isValidName(member.getName())) throw new InvalidNameException("Name of " + member.getRelation_with_user().toLowerCase() + " is not any valid name.");
+
+        return true;
 
     }
 }

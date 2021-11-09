@@ -21,7 +21,7 @@ public class PolicyService extends ModelMapper {
     @Autowired
     private ModelMapper modelMapper;
 
-    private Float ageToPremium(Policy policy, Integer age) {
+    protected Float ageToPremium(Policy policy, Integer age) {
         if (age == 0) return 0.0F;
         if (age < 18) return policy.getPremiumUpto18();
         if (age < 45) return policy.getPremiumUpto45();

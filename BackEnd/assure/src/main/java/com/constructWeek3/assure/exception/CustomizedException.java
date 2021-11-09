@@ -76,4 +76,16 @@ public class CustomizedException extends ResponseEntityExceptionHandler {
         ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(InvalidNameException.class)
+    public final ResponseEntity<Object> handleInvalidNameException(Exception e, WebRequest request) {
+        ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(ex, HttpStatus.CHECKPOINT);
+    }
+
+    @ExceptionHandler(InvalidPremiumException.class)
+    public final ResponseEntity<Object> handleInvalidPremiumException(Exception e, WebRequest request) {
+        ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(ex, HttpStatus.NOT_ACCEPTABLE);
+    }
 }

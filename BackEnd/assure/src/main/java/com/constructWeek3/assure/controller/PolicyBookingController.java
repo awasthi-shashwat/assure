@@ -1,5 +1,6 @@
 package com.constructWeek3.assure.controller;
 
+import com.constructWeek3.assure.dto.MembersDTO;
 import com.constructWeek3.assure.dto.PolicyBookingInputDTO;
 import com.constructWeek3.assure.dto.PolicyBookingsGetListDTO;
 import com.constructWeek3.assure.service.PolicyBookingsService;
@@ -28,5 +29,11 @@ public class PolicyBookingController {
     public ResponseEntity<PolicyBookingInputDTO> bookPolicy(@PathVariable Long userId, @PathVariable Long policyId, @RequestBody PolicyBookingInputDTO policyBookingInputDTO) {
         PolicyBookingInputDTO bookingInputDTO = policyBookingsService.bookPolicy(userId, policyId, policyBookingInputDTO);
         return new ResponseEntity<>(bookingInputDTO, HttpStatus.CREATED);
+    }
+
+    //Check whether a member details is valid for policy booking
+    @PostMapping("/booking/validate/member")
+    public ResponseEntity<Boolean> validateMember(@RequestBody MembersDTO membersDTO) {
+        return new ResponseEntity<>(policyBookingsService.validateMember(membersDTO), HttpStatus.OK);
     }
 }
