@@ -1,0 +1,101 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: rgb(36, 36, 36);
+    border-radius: 20px;
+}
+
+.main_container{
+    position: relative;
+    width: 375px;
+    height: 812px;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    border: 1px solid black;
+}
+
+.header{
+    position: absolute;
+    width: 375px;
+    height: 40px;
+    left: 0px;
+    top: 0px;
+    background: #118592;
+    border-radius: 20px 20px 0px 0px;
+}
+
+.time_header{
+    position: absolute;
+    width: 32px;
+    height: 17px;
+    left: 30px;
+    top: 11px;
+}
+
+#time{
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
+    color: #FFFFFF;
+}
+
+.i_phone_head{
+    position: absolute;
+    width: 164px;
+    height: 25px;
+    left: 105px;
+    top: 0px;
+    background: #000000;
+    border-radius: 0px 0px 15px 15px;
+}
+
+#icon_battery{
+    position: absolute;
+    width: 21.5px;
+    height: 10px;
+    left: 332px;
+    top: 15px;
+}
+
+#icon_wifi{
+    position: absolute;
+    left: 83.63%;
+    right: 12.7%;
+    top: 15px;
+}
+
+#icon_network{
+    position: absolute;
+    width: 15px;
+    height: 10px;
+    left: 294px;
+    top: 15px;
+}
+
+#assure_logo{
+    position: absolute;
+    width: 182px;
+    height: 182px;
+    left: 96px;
+    top: 70px;
+}
+
+#welcome{
+    position: absolute;
+    width: 140px;
+    height: 29px;
+    left: 117px;
+    top: 252px;
+    font-family: Palanquin;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 29px;
+    text-align: center;
+    color: #063035;
+}
