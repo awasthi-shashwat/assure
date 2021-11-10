@@ -1,12 +1,12 @@
 package com.constructWeek3.assure.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,8 +14,6 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
-@Table( uniqueConstraints = { @UniqueConstraint(columnNames = {"policyId"})})
 public class Policy {
 
     @Id
@@ -43,17 +41,11 @@ public class Policy {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Hospitals> hospitals = new HashSet<>();
 
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(name = "POLICY_LOCATION",
-            joinColumns = @JoinColumn(name = "POLICY_IDs"),
-            inverseJoinColumns = @JoinColumn(name = "LOCATION"))
-    public List<Location> locations = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Location> locations = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY)
     private Set<PolicyBookings> policyBookings = new HashSet<>();
 
-    public void addLocation(Location location){
-        this.locations.add(location);
-    }
+
 }

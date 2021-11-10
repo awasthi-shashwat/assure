@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -13,7 +14,6 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class PolicyBookings {
 
     @Id
@@ -25,7 +25,7 @@ public class PolicyBookings {
     private Float premium;
     private Integer coverTenure;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private Set<Members> members = new HashSet<Members>();
 
     @JsonIgnore
@@ -35,6 +35,10 @@ public class PolicyBookings {
 
     @ManyToOne
     private User user;
+
+    @OneToMany
+    @JoinColumn(name="policy_bookings_booking_id")
+    private List<Claim> ListOfClaims;
 
     public void addMember(Members member) {
         members.add(member);

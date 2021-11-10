@@ -4,10 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Data
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,7 +16,7 @@ import java.util.Date;
 @ToString
 public class Members {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long member_id;
     private String name;
     private String relation_with_user;
@@ -26,13 +27,18 @@ public class Members {
     private Boolean martial_status;
     private String email;
     @Column(unique=true)
+    private String aadhaar;
     private String mobile;
     private String occupation;
     private String height;
     private Float weight;
 
+    @OneToMany
+    @JoinColumn(name="member_member_id")
+    private List<Claim> claim = new ArrayList<>();
+
     @JsonIgnore
-    @ManyToOne()
+    @ManyToOne
     PolicyBookings policyBookings;
 
 }

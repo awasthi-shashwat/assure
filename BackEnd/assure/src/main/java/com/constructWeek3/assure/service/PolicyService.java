@@ -27,7 +27,7 @@ public class PolicyService extends ModelMapper {
     private ModelMapper modelMapper;
 
     protected Float ageToPremium(Policy policy, Integer age) {
-        if (age == 0) return 0.0F;
+        if (age == null || age == 0) return 0.0F;
         if (age < 18) return policy.getPremiumUpto18();
         if (age < 45) return policy.getPremiumUpto45();
         if (age < 60) return policy.getPremiumUpto60();
@@ -35,6 +35,13 @@ public class PolicyService extends ModelMapper {
         return 0.0F;
     }
 
+    protected Boolean isAgeProvided(Integer age1, Integer age2) {
+        return !(age1 == null || age1 == 0 || age2 == null || age2 == 0);
+    }
+
+    protected Boolean isAgeProvided(Integer age1) {
+        return !(age1 == null || age1 == 0);
+    }
     public List<PolicyDTO> getPolicies(AgeDTO ages) {
 
 //        Long user = ages.getUserId();
@@ -46,13 +53,13 @@ public class PolicyService extends ModelMapper {
         Integer ageSon = ages.getAgeOfSon();
         Integer ageDaughter = ages.getAgeOfDaughter();
 
-        if (ageFather < 0 || ageSelf < 0 || ageMother < 0 || ageDaughter < 0 || ageSpouse < 0 || ageSon < 0) throw new InvalidAgeOfMemberException("Invalid age specification. Age cannot be negative.");
-        if (ageFather - ageSelf < 18) throw new InvalidAgeOfMemberException("Invalid age specification. Your Father should be atleast 18 years elder than you.");
-        if (ageMother - ageSelf < 18) throw new InvalidAgeOfMemberException("Invalid age specification. Your Mother should be atleast 18 years elder than you.");
-        if (ageSelf - ageSon < 18) throw new InvalidAgeOfMemberException("Invalid age specification. Your Son should be atleast 18 years younger than you.");
-        if (ageSelf - ageDaughter < 18) throw new InvalidAgeOfMemberException("Invalid age specification. Your Daughter should be atleast 18 years younger than you.");
-        if (ageSpouse - ageDaughter < 18) throw new InvalidAgeOfMemberException("Invalid age specification. Your Daughter should be atleast 18 years younger than your spouse.");
-        if (ageSpouse - ageSon < 18) throw new InvalidAgeOfMemberException("Invalid age specification. Your Son should be atleast 18 years younger than your spouse.");
+        if ((isAgeProvided(ageFather) && ageFather < 0) || (isAgeProvided(ageSelf) && ageSelf < 0) || (isAgeProvided(ageMother) && ageMother < 0) || (isAgeProvided(ageDaughter) && ageDaughter < 0) || (isAgeProvided(ageSpouse) && ageSpouse < 0) || (isAgeProvided(ageSon) && ageSon < 0)) throw new InvalidAgeOfMemberException("Invalid age specification. Age cannot be negative.");
+        if (isAgeProvided(ageFather, ageSelf) && (ageFather - ageSelf < 18)) throw new InvalidAgeOfMemberException("Invalid age specification. Your Father should be atleast 18 years elder than you.");
+        if (isAgeProvided(ageMother, ageSelf) && (ageMother - ageSelf < 18)) throw new InvalidAgeOfMemberException("Invalid age specification. Your Mother should be atleast 18 years elder than you.");
+        if (isAgeProvided(ageSon, ageSelf) && (ageSelf - ageSon < 18)) throw new InvalidAgeOfMemberException("Invalid age specification. Your Son should be atleast 18 years younger than you.");
+        if (isAgeProvided(ageDaughter, ageSelf) && (ageSelf - ageDaughter < 18)) throw new InvalidAgeOfMemberException("Invalid age specification. Your Daughter should be atleast 18 years younger than you.");
+        if (isAgeProvided(ageDaughter, ageSpouse) && (ageSpouse - ageDaughter < 18)) throw new InvalidAgeOfMemberException("Invalid age specification. Your Daughter should be atleast 18 years younger than your spouse.");
+        if (isAgeProvided(ageSpouse, ageSon) && (ageSpouse - ageSon < 18)) throw new InvalidAgeOfMemberException("Invalid age specification. Your Son should be atleast 18 years younger than your spouse.");
 
         List<Policy> policies = policyRepository.findAll();
         List<PolicyDTO> policyDTOList = modelMapper.map(policies, new TypeToken<List<PolicyDTO>>() {}.getType());
