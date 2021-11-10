@@ -140,6 +140,7 @@ body{
     border: none;
     left: 57px;
     border-bottom: 1px solid #C4C4C4;
+    outline: none;
 }
 
 #name_input{
@@ -162,7 +163,7 @@ body{
     top: 553px;
 }
 
-.submit_btn{
+#submit_btn{
     width: 263px;
     height: 40px;
     left: 56px;
