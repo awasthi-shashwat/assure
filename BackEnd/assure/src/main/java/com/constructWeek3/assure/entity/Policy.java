@@ -106,6 +106,10 @@ public class Policy {
     @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private Set<PolicyBookings> policyBookings = new HashSet<>();
 
+    public void addPolicyBooking(PolicyBookings policyBooking) {
+        policyBookings.add(policyBooking);
+    }
+
     public void addLocation(Location location){
         this.locations.add(location);
     }
