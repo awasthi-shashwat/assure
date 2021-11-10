@@ -17,6 +17,7 @@ public class MembersDTO {
     private String city;
     private Boolean martial_status; //true for married
     private String email;
+    private String aadhaar;
     private String mobile;
     private String occupation;
     private String height;

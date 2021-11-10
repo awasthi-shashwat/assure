@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,11 +26,16 @@ public class Members {
     private String city;
     private Boolean martial_status;
     private String email;
-//    @Column(unique=true)
+    @Column(unique=true)
+    private String aadhaar;
     private String mobile;
     private String occupation;
     private String height;
     private Float weight;
+
+    @OneToMany
+    @JoinColumn(name="member_member_id")
+    private List<Claim> claim = new ArrayList<>();
 
     @JsonIgnore
     @ManyToOne

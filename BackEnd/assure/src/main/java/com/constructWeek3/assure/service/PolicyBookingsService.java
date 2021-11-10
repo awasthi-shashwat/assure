@@ -3,7 +3,6 @@ package com.constructWeek3.assure.service;
 import com.constructWeek3.assure.dto.MembersDTO;
 import com.constructWeek3.assure.dto.PolicyBookingInputDTO;
 import com.constructWeek3.assure.dto.PolicyBookingsGetListDTO;
-import com.constructWeek3.assure.dto.ProfileMemberDTO;
 import com.constructWeek3.assure.entity.Members;
 import com.constructWeek3.assure.entity.Policy;
 import com.constructWeek3.assure.entity.PolicyBookings;
@@ -13,7 +12,6 @@ import com.constructWeek3.assure.repository.MembersRepository;
 import com.constructWeek3.assure.repository.PolicyBookingsRepository;
 import com.constructWeek3.assure.repository.PolicyRepository;
 import com.constructWeek3.assure.repository.UserRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.modelmapper.convention.MatchingStrategies;
@@ -72,6 +70,15 @@ public class PolicyBookingsService {
 
     }
 
+    public Boolean isValidAadhaar(String aadhaar) {
+
+        Pattern aadhaarNoPattern = Pattern.compile("^[2-9][0-9]{11}$");
+
+        Matcher aadhaarNoMatcher = aadhaarNoPattern.matcher(aadhaar);
+        return aadhaarNoMatcher.matches();
+
+    }
+
     public Boolean isValidGender(String gender) {
 
         gender = gender.toLowerCase();
@@ -92,7 +99,7 @@ public class PolicyBookingsService {
 
     }
 
-    public PolicyBookingInputDTO bookPolicy(Long userId, Long policyId, PolicyBookingInputDTO policyBookingInputDTO) throws ParseException {
+    public PolicyBookingInputDTO bookPolicy(Long userId, Long policyId, PolicyBookingInputDTO policyBookingInputDTO) throws ParseException, Exception {
 
         //Checking for any inconsistency in the input data
 
@@ -143,7 +150,10 @@ public class PolicyBookingsService {
         modelMapper.map(policyBookingInputDTO, policyBooking);
         policyBooking.setMembers(new HashSet<>());
 
+
         policyBookingsRepository.save(policyBooking);
+        policy.get().addPolicyBooking(policyBooking);
+        policyRepository.save(policy.get());
 
         for (MembersDTO member :
                 membersDTOS) {
@@ -166,7 +176,7 @@ public class PolicyBookingsService {
     public List<PolicyBookingsGetListDTO> getBookedPolicies(Long userId) {
 
         Optional<User> user = userRepository.findById(userId);
-        if (user.isEmpty()) throw new UserDoesNotExistException("No policy could be booked because the User does not exist!");
+        if (user.isEmpty()) throw new UserDoesNotExistException("No policy bookings could be found because the User does not exist!");
 
         List<PolicyBookings> policyBookings = user.get().getPolicyBookingsList();
 
@@ -177,16 +187,17 @@ public class PolicyBookingsService {
 
     }
 
-    public Boolean validateMember(MembersDTO member) {
+    public Boolean validateMember(MembersDTO member) throws Exception{
 
         if (!isValidMobile(member.getMobile())) throw new InvalidMobileNumberException("Enter a correct 10 digit mobile number without starting with appending country code or 0.");
         if (!isValidGender(member.getGender())) throw new InvalidGenderException("Gender can be either male, female or transgender. (Case-Insensitive)");
         String message = isValidEmail(member.getEmail());
         if (message.length() > 0) throw new InvalidEmailException(message);
-        if (member.getIs_taking_medicines() == null || member.getMartial_status() == null || member.getEmail().equals("") || member.getGender().equals("") || member.getMobile().equals("") || member.getCity().equals("") || member.getDob() == null || member.getHeight().equals("") || member.getOccupation().equals("") || member.getRelation_with_user().equals("") || member.getWeight() == 0.0F || member.getName().equals(""))
-            throw new InsufficientMemberDetailsException("Required Details of all members are partially provided not provided.");
+        if (member.getIs_taking_medicines() == null || member.getMartial_status() == null || member.getEmail().equals("") || member.getGender().equals("") || member.getMobile().equals("") || member.getCity().equals("") || member.getDob() == null || member.getHeight().equals("") || member.getOccupation().equals("") || member.getRelation_with_user().equals("") || member.getWeight() == 0.0F || member.getName().equals("") || member.getAadhaar().equals(""))
+            throw new InsufficientMemberDetailsException("Required Details of all members are partially provided or not provided.");
         if (!relations.contains(member.getRelation_with_user().toLowerCase())) throw new InvalidRelationException("Please enter a valid relation with user.");
         if (!isValidName(member.getName())) throw new InvalidNameException("Name of " + member.getRelation_with_user().toLowerCase() + " is not any valid name.");
+        if (!isValidAadhaar(member.getAadhaar())) throw new InvalidAadhaarNumberException("An invalid aadhaar number has been entered");
 
         return true;
 
