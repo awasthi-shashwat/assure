@@ -4,6 +4,7 @@ package com.constructWeek3.assure.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -20,9 +21,14 @@ public class Claim {
     private Date dateOfClaim;
     private Date dateOfTreatment;
     private Float amountToClaim;
+
     @OneToMany
-    private List<Document> documents;
-    private String membershipId;
+    @JoinColumn(name="claim_id")
+    private List<Document> documents = new ArrayList<>();
+
+    @ManyToOne
+    private Members member;
+
     @ManyToOne
     private PolicyBookings policyBookings;
 

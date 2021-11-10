@@ -38,6 +38,7 @@ public class PolicyBookings {
     private User user;
 
     @OneToMany
+    @JoinColumn(name="policy_bookings_booking_id")
     private List<Claim> ListOfClaims;
 
     public void addMember(Members member) {
