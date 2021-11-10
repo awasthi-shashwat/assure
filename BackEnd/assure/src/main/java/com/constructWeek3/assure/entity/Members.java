@@ -24,7 +24,8 @@ public class Members {
     private String city;
     private Boolean martial_status;
     private String email;
-//    @Column(unique=true)
+    @Column(unique=true)
+    private String aadhaar;
     private String mobile;
     private String occupation;
     private String height;

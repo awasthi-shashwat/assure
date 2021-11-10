@@ -88,4 +88,10 @@ public class CustomizedException extends ResponseEntityExceptionHandler {
         ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(ex, HttpStatus.NOT_ACCEPTABLE);
     }
+
+    @ExceptionHandler(InvalidAadhaarNumberException.class)
+    public final ResponseEntity<Object> handleInvalidAadhaarException(Exception e, WebRequest request) {
+        ExceptionDTO ex = new ExceptionDTO(new Date(), e.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
+    }
 }
