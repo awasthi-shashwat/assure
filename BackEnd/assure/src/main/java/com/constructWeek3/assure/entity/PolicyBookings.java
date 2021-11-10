@@ -14,7 +14,6 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class PolicyBookings {
 
     @Id
@@ -26,7 +25,7 @@ public class PolicyBookings {
     private Float premium;
     private Integer coverTenure;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private Set<Members> members = new HashSet<Members>();
 
     @JsonIgnore

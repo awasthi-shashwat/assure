@@ -1,9 +1,6 @@
 package com.constructWeek3.assure.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -11,9 +8,9 @@ import java.util.Set;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@ToString
 public class Policy {
 
     @Id
@@ -38,14 +35,24 @@ public class Policy {
     private Integer tenure2;
     private Integer tenure3;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private Set<Hospitals> hospitals = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private Set<Location> locations = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private Set<PolicyBookings> policyBookings = new HashSet<>();
 
+    public void addPolicyBooking(PolicyBookings policyBooking) {
+        policyBookings.add(policyBooking);
+    }
 
+    public void addLocation(Location location) {
+        locations.add(location);
+    }
+
+    public void addHospital(Hospitals hospital) {
+        hospitals.add(hospital);
+    }
 }

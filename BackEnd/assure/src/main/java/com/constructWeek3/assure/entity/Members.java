@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Data
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,7 +16,7 @@ import java.util.List;
 @ToString
 public class Members {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long member_id;
     private String name;
     private String relation_with_user;
@@ -28,6 +27,7 @@ public class Members {
     private Boolean martial_status;
     private String email;
     @Column(unique=true)
+    private String aadhaar;
     private String mobile;
     private String occupation;
     private String height;
@@ -38,7 +38,7 @@ public class Members {
     private List<Claim> claim = new ArrayList<>();
 
     @JsonIgnore
-    @ManyToOne()
+    @ManyToOne
     PolicyBookings policyBookings;
 
 }
