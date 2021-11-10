@@ -150,7 +150,10 @@ public class PolicyBookingsService {
         modelMapper.map(policyBookingInputDTO, policyBooking);
         policyBooking.setMembers(new HashSet<>());
 
+
         policyBookingsRepository.save(policyBooking);
+        policy.get().addPolicyBooking(policyBooking);
+        policyRepository.save(policy.get());
 
         for (MembersDTO member :
                 membersDTOS) {
