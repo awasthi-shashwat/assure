@@ -4,12 +4,10 @@ import com.constructWeek3.assure.dto.MembersDTO;
 import com.constructWeek3.assure.dto.PolicyBookingInputDTO;
 import com.constructWeek3.assure.dto.PolicyBookingsGetListDTO;
 import com.constructWeek3.assure.service.PolicyBookingsService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.text.ParseException;
 import java.util.List;

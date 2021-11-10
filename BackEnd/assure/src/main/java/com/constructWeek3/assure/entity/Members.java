@@ -14,7 +14,7 @@ import java.util.Date;
 @ToString
 public class Members {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long member_id;
     private String name;
     private String relation_with_user;

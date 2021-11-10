@@ -141,7 +141,7 @@ public class PolicyBookingsService {
         policyBooking.setPolicyName(policy.get().getPolicyName());
         policyBooking.setBookingDate(new Date());
         modelMapper.map(policyBookingInputDTO, policyBooking);
-
+        policyBooking.setMembers(new HashSet<>());
 
         policyBookingsRepository.save(policyBooking);
 
@@ -150,14 +150,15 @@ public class PolicyBookingsService {
 
             Members actualMember = new Members();
             modelMapper.map(member, actualMember);
-//            actualMember.setPolicyBookings(policyBooking);
-
+            actualMember.setPolicyBookings(policyBooking);
             actualMember.setDOB(toDate(member.getDob()));
             membersRepository.save(actualMember);
             policyBooking.addMember(actualMember);
-            policyBookingsRepository.save(policyBooking);
-
         }
+
+        user.get().setPolicyBookings(policyBooking);
+        userRepository.save(user.get());
+        policyBookingsRepository.save(policyBooking);
 
         return policyBookingInputDTO;
     }
@@ -171,16 +172,8 @@ public class PolicyBookingsService {
 
         modelMapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.LOOSE);
-        List<PolicyBookingsGetListDTO> DTO = modelMapper.map(policyBookings, new TypeToken<List<PolicyBookingsGetListDTO>>() {}.getType());
 
-        for (int i = 0; i < policyBookings.size(); i++) {
-
-            List<ProfileMemberDTO> profileMemberDTO = modelMapper.map(policyBookings.get(i).getMembers(), new TypeToken<List<PolicyBookingsGetListDTO>>() {}.getType());
-            DTO.get(i).setMemberDTOSet(profileMemberDTO);
-
-        }
-
-        return DTO;
+        return modelMapper.map(policyBookings, new TypeToken<List<PolicyBookingsGetListDTO>>() {}.getType());
 
     }
 

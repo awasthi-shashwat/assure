@@ -2,11 +2,13 @@ package com.constructWeek3.assure.service;
 
 
 import com.constructWeek3.assure.dto.MembersDTO;
+import com.constructWeek3.assure.dto.PolicyBookingsGetListDTO;
 import com.constructWeek3.assure.entity.Members;
 import com.constructWeek3.assure.exception.UserExists;
 import com.constructWeek3.assure.modelmapper.ModelMapperClass;
 import com.constructWeek3.assure.repository.MembersRepository;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,14 +27,16 @@ public class MembersService {
 
     public List<MembersDTO> getallmembers() {
         List<Members> allmembers = membersRepository.findAll();
-        List<MembersDTO> allmembersdto = new ArrayList<>();
-        MembersDTO membersDTO = new MembersDTO();
-
-        for (Members allmembers1 : allmembers) {
-            modelmapper.map(allmembers1, membersDTO);
-            allmembersdto.add(membersDTO);
-        }
+        List<MembersDTO> allmembersdto = modelmapper.map(allmembers, new TypeToken<List<MembersDTO>>() {}.getType());
+//        List<MembersDTO> allmembersdto = new ArrayList<>();
+//        MembersDTO membersDTO = new MembersDTO();
+//
+//        for (Members allmembers1 : allmembers) {
+//            modelmapper.map(allmembers1, membersDTO);
+//            allmembersdto.add(membersDTO);
+//        }
         return allmembersdto;
+
     }
 
 
