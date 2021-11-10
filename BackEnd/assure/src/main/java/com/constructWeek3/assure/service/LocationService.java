@@ -21,8 +21,10 @@ public class LocationService {
         return  "Location has been added";
     }
 
-//    public List<Location> getAllLocation() {
-//        List<Location> locations = locationRepository.findAll();
-//        return locations;
-//    }
+
+
+    public List<Location> getAllLocation() {
+        List<Location> locations = locationRepository.findAll();
+        return locations;
+    }
 }
