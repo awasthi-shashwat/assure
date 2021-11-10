@@ -25,8 +25,24 @@
                 <img id="icon_network" src="..\images\network.svg" alt="">
             </div>
         </div> -->
-        <img id="assure_logo" src="..\images\assure_logo.svg" alt="">
-        <span id="welcome">Welcome to Assure!</span>
+        <img id="assure_logo" class="position" src="..\images\assure_logo.svg" alt="Assure">
+        <span id="welcome" class="font_family font_style position">Welcome to Assure!</span>
+        <div>
+            <input id="name_input" class="input_regis_log position" type="text" placeholder="Name">
+            <input id="email_input" class="input_regis_log position" type="email" placeholder="email">
+            <input id="mob_input" class="input_regis_log position" type="tel" pattern="[0-9]{10}" placeholder="Mobile Number">
+            <input id="pass_input" class="input_regis_log position" type="text" placeholder="Password">
+            <input id="confirm_pass_input" class="input_regis_log position" type="text" placeholder="Confirm Password">
+        </div>
+        <div id="sub_btn_div">
+            <div class="submit_btn backgroung_color_1 position">
+                <span id="submit_text" class="font_family font_style position">Register</span>
+            </div>
+        </div>
+        <div id="already" class="font_family font_style font_weight_1 position">
+            Already have an account?
+            <a href="..\html\login.html" class="font_color_1">Login</a>
+        </div>
     </div>
 </body>
 </html>

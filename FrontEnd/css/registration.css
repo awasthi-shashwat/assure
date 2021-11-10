@@ -1,7 +1,41 @@
+
+/* common properties */
+
 *{
     margin: 0;
     padding: 0;
 }
+
+::placeholder{
+    color: #7B8384;
+}
+
+.font_family{
+    font-family: Palanquin;
+}
+
+.font_style{
+    font-style: normal;
+}
+
+.font_weight_1{
+    font-weight: 500;
+}
+
+.font_color_1{
+    color: #118592;
+}
+
+.backgroung_color_1{
+    background: #118592;
+}
+
+.position{
+    position: absolute;
+}
+
+
+/* specific properties */
 
 body{
     background-color: rgb(36, 36, 36);
@@ -16,6 +50,8 @@ body{
     border-radius: 20px;
     border: 1px solid black;
 }
+
+/* header part */
 
 .header{
     position: absolute;
@@ -77,8 +113,9 @@ body{
     top: 15px;
 }
 
+/* logo and input  */
+
 #assure_logo{
-    position: absolute;
     width: 182px;
     height: 182px;
     left: 96px;
@@ -86,16 +123,71 @@ body{
 }
 
 #welcome{
-    position: absolute;
     width: 140px;
     height: 29px;
     left: 117px;
     top: 252px;
-    font-family: Palanquin;
-    font-style: normal;
     font-weight: 500;
     font-size: 16px;
     line-height: 29px;
     text-align: center;
     color: #063035;
+}
+
+.input_regis_log{
+    width: 262px;
+    height: 33px;
+    border: none;
+    left: 57px;
+    border-bottom: 1px solid #C4C4C4;
+}
+
+#name_input{
+    top: 325px;
+}
+
+#email_input{
+    top: 382px;
+}
+
+#mob_input{
+    top: 439px;
+}
+
+#pass_input{
+    top: 496px;
+}
+
+#confirm_pass_input{
+    top: 553px;
+}
+
+.submit_btn{
+    width: 263px;
+    height: 40px;
+    left: 56px;
+    top: 682px;
+    border-radius: 8px;
+}
+
+#submit_text{
+    width: 58px;
+    height: 25px;
+    left: 39%;
+    top: 20%;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 25px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+#already{
+    width: 167px;
+    height: 22px;
+    left: 104px;
+    top: 738px;
+    font-size: 12px;
+    line-height: 22px;
+    text-align: center;
 }
