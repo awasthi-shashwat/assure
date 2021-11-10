@@ -27,4 +27,6 @@ public class LocationService {
         List<Location> locations = locationRepository.findAll();
         return locations;
     }
+
+
 }
