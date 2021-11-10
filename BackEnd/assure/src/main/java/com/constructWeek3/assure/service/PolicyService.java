@@ -2,8 +2,10 @@ package com.constructWeek3.assure.service;
 
 import com.constructWeek3.assure.dto.PolicyDTO;
 import com.constructWeek3.assure.dto.AgeDTO;
+import com.constructWeek3.assure.entity.Location;
 import com.constructWeek3.assure.entity.Policy;
 import com.constructWeek3.assure.exception.InvalidAgeOfMemberException;
+import com.constructWeek3.assure.repository.LocationRepository;
 import com.constructWeek3.assure.repository.PolicyRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -17,6 +19,9 @@ public class PolicyService extends ModelMapper {
 
     @Autowired
     private PolicyRepository policyRepository;
+
+    @Autowired
+    private LocationRepository locationRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -69,6 +74,42 @@ public class PolicyService extends ModelMapper {
 
         }
         return policyDTOList;
+
+    }
+
+    public String addLocatonForPolicy(Long policyId, Location location) {
+        Policy policy = policyRepository.findById(policyId).get();
+
+        if(policy == null){
+            return "Invalid policy Id";
+        }
+        else {
+            Location location1 = locationRepository.findById(location.getLocationId()).get();
+            List<Policy> policies = location1.getPolicies();
+
+            for(Policy policy1:policies){
+                if(policy1.getPolicyId()==policyId){
+                    return "Location already exist for this policy";
+                }
+            }
+
+            if(location1==null){
+                locationRepository.save(location);
+                policy.addLocation(location);
+                location.addPolicies(policy);
+                locationRepository.save(location);
+                policyRepository.save(policy);
+            }
+
+            else{
+                policy.addLocation(location1);
+                location1.addPolicies(policy);
+                locationRepository.save(location1);
+                policyRepository.save(policy);
+            }
+
+            return "Location has been successfully added";
+        }
 
     }
 }
