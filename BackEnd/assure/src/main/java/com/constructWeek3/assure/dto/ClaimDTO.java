@@ -18,14 +18,10 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClaimDTO {
-    private Long id;
     private Date dateOfClaim;
-    private Date dateOfTreatment;
     private Float amountToClaim;
 
-    private List<Document> documents = new ArrayList<>();
-
-    private Members member;
-
-    private PolicyBookings policyBookings;
+    private String nameOfMember;
+    private String status;
+    private String policyBookingName;
 }

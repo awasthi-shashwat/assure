@@ -103,6 +103,7 @@ public class Policy {
             inverseJoinColumns = @JoinColumn(name = "LOCATION"))
     public List<Location> locations = new ArrayList<>();
 
+
     @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private Set<PolicyBookings> policyBookings = new HashSet<>();
 

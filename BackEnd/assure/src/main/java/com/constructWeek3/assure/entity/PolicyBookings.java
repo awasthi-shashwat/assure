@@ -25,18 +25,21 @@ public class PolicyBookings {
     private Float premium;
     private Integer coverTenure;
 
+
     @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private Set<Members> members = new HashSet<Members>();
 
-    @JsonIgnore
+
 
     @ManyToOne
     private Policy policy;
 
+
     @ManyToOne
     private User user;
 
-    @OneToMany
+
+    @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn(name="policy_bookings_booking_id")
     private List<Claim> ListOfClaims;
 
@@ -45,4 +48,7 @@ public class PolicyBookings {
     }
 
 
+    public void addClaim(Claim claim) {
+        this.ListOfClaims.add(claim);
+    }
 }
