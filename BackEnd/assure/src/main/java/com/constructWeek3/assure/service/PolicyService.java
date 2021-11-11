@@ -5,6 +5,8 @@ import com.constructWeek3.assure.dto.AgeDTO;
 import com.constructWeek3.assure.entity.Location;
 import com.constructWeek3.assure.entity.Policy;
 import com.constructWeek3.assure.exception.InvalidAgeOfMemberException;
+import com.constructWeek3.assure.exception.PolicyDoesNotExistException;
+import com.constructWeek3.assure.exception.UserExists;
 import com.constructWeek3.assure.repository.LocationRepository;
 import com.constructWeek3.assure.repository.PolicyRepository;
 import org.modelmapper.ModelMapper;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PolicyService extends ModelMapper {
@@ -85,34 +88,38 @@ public class PolicyService extends ModelMapper {
     }
 
     public String addLocatonForPolicy(Long policyId, Location location) {
-        Policy policy = policyRepository.findById(policyId).get();
+        Optional<Policy> policy2 = policyRepository.findById(policyId);
 
-        if(policy == null){
-            return "Invalid policy Id";
+        if(policy2.isEmpty()){
+            throw new PolicyDoesNotExistException("The policy that you chose does not exist");
         }
         else {
-            Location location1 = locationRepository.findById(location.getLocationId()).get();
-            List<Policy> policies = location1.getPolicies();
-
-            for(Policy policy1:policies){
-                if(policy1.getPolicyId()==policyId){
-                    return "Location already exist for this policy";
-                }
-            }
-
-            if(location1==null){
+            Policy policy = policyRepository.findById(policyId).get();
+            Optional<Location> location2 = locationRepository.findById(location.getLocationId());
+            if(location2.isEmpty()){
                 locationRepository.save(location);
                 policy.addLocation(location);
                 location.addPolicies(policy);
                 locationRepository.save(location);
                 policyRepository.save(policy);
             }
-
             else{
-                policy.addLocation(location1);
-                location1.addPolicies(policy);
-                locationRepository.save(location1);
+                Location location1 = locationRepository.findById(location.getLocationId()).get();
+                List<Policy> policies = location1.getPolicies();
+
+                for(Policy policy1:policies){
+                    if(policy1.getPolicyId()==policyId){
+                        throw new UserExists("Location is already exist for the policy");
+                    }
+                }
+
+
+                Location location3 = locationRepository.findById(location.getLocationId()).get();
+                policy.addLocation(location3);
+                location3.addPolicies(policy);
+                locationRepository.save(location3);
                 policyRepository.save(policy);
+
             }
 
             return "Location has been successfully added";
