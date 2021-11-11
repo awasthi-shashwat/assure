@@ -1,6 +1,5 @@
 package com.constructWeek3.assure.controller;
 
-import com.constructWeek3.assure.AssureApplication;
 import com.constructWeek3.assure.dto.LoginDTO;
 import com.constructWeek3.assure.dto.UserDTO;
 import com.constructWeek3.assure.service.UserService;
@@ -22,14 +21,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import java.net.URI;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -40,12 +32,11 @@ public class UserController {
 
     //Authenticating and registering a new user
     @PostMapping("/user/authenticate")
-    public ResponseEntity authenticateUser(@RequestBody UserDTO userDTO) throws InvalidAlgorithmParameterException, IllegalBlockSizeException, NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-
+    public ResponseEntity authenticateUser(@RequestBody UserDTO userDTO){
         // filtering out and sending just the user mail and mobile for authentication and otp transfer to the user
         if(userDTO.getOtp().equals("")){
 
-            SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("userEmail","userMobile");
+            SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter.filterOutAllExcept("userName","userEmail","userMobile","userPass");
 
             FilterProvider filterProvider = new SimpleFilterProvider()
                     .addFilter("UserFilter",filter);
@@ -74,11 +65,18 @@ public class UserController {
 
     // Login request
     @PostMapping("/user/getUser")
-    public ResponseEntity getUserDetails(@RequestBody LoginDTO loginDTO) throws InvalidAlgorithmParameterException, IllegalBlockSizeException, NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-
+    public ResponseEntity getUserDetails(@RequestBody LoginDTO loginDTO){
         Long userId = userService.getUserDetails(loginDTO);
 
         return new ResponseEntity(userId, HttpStatus.FOUND);
+    }
+
+    // Deleting phone-otp relation
+    @PostMapping("/user/phoneotp")
+    public ResponseEntity removePhoneOTP(@RequestBody UserDTO userDTO){
+        userService.removePhoneOTP(userDTO);
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @Bean

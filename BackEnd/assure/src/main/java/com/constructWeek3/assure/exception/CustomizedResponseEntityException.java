@@ -58,6 +58,16 @@ public class CustomizedResponseEntityException extends ResponseEntityExceptionHa
         return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
+    //handles empty values sent and name and password length check
+    @ExceptionHandler(EmptyInputException.class)
+    public final ResponseEntity handleEmptyInputException(Exception e, WebRequest webRequest){
+
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(),
+                e.getMessage(), webRequest.getDescription(false));
+
+        return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
     // (Login)
     // Handles if the password and email is incorrect
     @ExceptionHandler(IncorrectPasswordAndEmail.class)

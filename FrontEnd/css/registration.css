@@ -156,16 +156,30 @@ body{
     top: 325px;
 }
 
+#name_error{
+    position: absolute;
+    width: 200px;
+    height: 14px;
+    left: 15%;
+    top: 44%;
+}
+
+#name_symb{
+    position: absolute;
+    left: 76%;
+    top: 41%;
+}
+
 #email_input{
     top: 382px;
 }
 
 #email_error{
     position: absolute;
-    width: 100px;
+    width: 200px;
     height: 14px;
     left: 15%;
-    top: 51.5%;
+    top: 51%;
 }
 
 #email_symb{
@@ -180,10 +194,10 @@ body{
 
 #mobile_error{
     position: absolute;
-    width: 100px;
+    width: 200px;
     height: 14px;
     left: 15%;
-    top: 58.5%;
+    top: 58%;
 }
 
 #mobile_symb{
@@ -196,16 +210,30 @@ body{
     top: 496px;
 }
 
+#pass_error{
+    position: absolute;
+    width: 250px;
+    height: 14px;
+    left: 15%;
+    top: 65%;
+}
+
+#pass_symb{
+    position: absolute;
+    left: 76%;
+    top: 62%;
+}
+
 #confirm_pass_input{
     top: 553px;
 }
 
 #confirm_error{
     position: absolute;
-    width: 100px;
+    width: 250px;
     height: 14px;
     left: 15%;
-    top: 72.5%;
+    top: 72%;
 }
 
 #confirm_symb{
@@ -218,7 +246,7 @@ body{
     font-family: Palanquin;
     font-style: normal;
     font-weight: normal;
-    font-size: 9px;
+    font-size: 11px;
     line-height: 14px;
     color: #F41414;
 }
@@ -258,7 +286,7 @@ body{
     left: 0px;
     top: 638px;
     background: #FFFFFF;
-    border-radius: 8px;
+    border-radius: 20px;
 }
 
 #otp{
