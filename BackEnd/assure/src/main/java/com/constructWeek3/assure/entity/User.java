@@ -1,11 +1,9 @@
 package com.constructWeek3.assure.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +24,13 @@ public class User {
     private String userMobile;
     private String userPass;
 
+
     @OneToMany
     private List<PolicyBookings> policyBookingsList = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name="user_user_Id")
+    private List<Claim> claims = new ArrayList<>();
 
     public void setPolicyBookings(PolicyBookings policyBookings){
         this.policyBookingsList.add(policyBookings);
@@ -37,7 +40,11 @@ public class User {
         this.policyBookingsList.remove(policyBookings);
     }
 
-//    @OneToMany
+    public void addClaim(Claim claim) {
+        this.claims.add(claim);
+    }
+
+    //    @OneToMany
 //    private List<Claims> claimsList = new ArrayList<>();
 //
 //    public void setClaims(Policy policy){

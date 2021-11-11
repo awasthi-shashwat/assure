@@ -19,16 +19,11 @@ import java.util.List;
 public class Location {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long locationId;
     String name;
 
-
-
-
-    @ManyToMany
-    @JoinTable(name = "Location_Policies",
-            joinColumns = @JoinColumn(name = "Location_Id"),
-            inverseJoinColumns = @JoinColumn(name = "Policy_Id"))
+    @ManyToMany(mappedBy = "locations")
     public List<Policy> policies = new ArrayList<>();
 
 

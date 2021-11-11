@@ -18,7 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import java.net.URI;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @RestController
@@ -29,7 +35,7 @@ public class UserController {
 
     //Authenticating and registering a new user
     @PostMapping("/user/authenticate")
-    public ResponseEntity<Object> authenticateUser(@RequestBody UserDTO userDTO){
+    public ResponseEntity<Object> authenticateUser(@RequestBody UserDTO userDTO) throws InvalidAlgorithmParameterException, IllegalBlockSizeException, NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
 
         // filtering out and sending just the user mail and mobile for authentication and otp transfer to the user
         if(userDTO.getOtp() == null){
@@ -50,24 +56,24 @@ public class UserController {
         }
 
         // When the otp is provided, user is verified and registered in database
-        Long id = userService.registerUser(userDTO);
+        Long userID = userService.registerUser(userDTO);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(id)
+                .buildAndExpand(userID)
                 .toUri();
 
-        return ResponseEntity.created(location).body("User registered");
+        return ResponseEntity.created(location).body(userID);
     }
 
     // Login request
     @PostMapping("/user/getUser")
-    public ResponseEntity getUserDetails(@RequestBody LoginDTO loginDTO){
+    public ResponseEntity getUserDetails(@RequestBody LoginDTO loginDTO) throws InvalidAlgorithmParameterException, IllegalBlockSizeException, NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
 
-        List list = userService.getUserDetails(loginDTO);
+        Long userId = userService.getUserDetails(loginDTO);
 
-        return new ResponseEntity(list, HttpStatus.FOUND);
+        return new ResponseEntity(userId, HttpStatus.FOUND);
     }
 
 }

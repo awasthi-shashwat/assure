@@ -33,12 +33,16 @@ public class Members {
     private String height;
     private Float weight;
 
+
     @OneToMany
     @JoinColumn(name="member_member_id")
-    private List<Claim> claim = new ArrayList<>();
+    private List<Claim> claims = new ArrayList<>();
 
-    @JsonIgnore
+
     @ManyToOne
     PolicyBookings policyBookings;
 
+    public void addClaim(Claim claim) {
+        this.claims.add(claim);
+    }
 }

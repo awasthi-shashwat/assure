@@ -5,7 +5,6 @@ import com.constructWeek3.assure.dto.AuthenticateUserDTO;
 import com.constructWeek3.assure.dto.LoginDTO;
 import com.constructWeek3.assure.dto.UserDTO;
 import com.constructWeek3.assure.entity.PhoneOTP;
-import com.constructWeek3.assure.entity.PolicyBookings;
 import com.constructWeek3.assure.entity.User;
 import com.constructWeek3.assure.exception.*;
 import com.constructWeek3.assure.modelmapper.ModelMapperClass;
@@ -23,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Service
@@ -99,7 +98,6 @@ public class UserService {
 
     //Registering the user
     public Long registerUser(UserDTO userDTO){
-
         User user = null;
 
         List<PhoneOTP> phoneOTPList = phoneOTP_repository.findAll();
@@ -135,10 +133,12 @@ public class UserService {
     }
 
     // After login returning the user details
-    public List getUserDetails(LoginDTO loginDTO) {
+    public Long getUserDetails(LoginDTO loginDTO){
         List<User> userList = userRepository.findAll();
 
-        List<PolicyBookings> list = null;
+        String encryptID = "";
+
+        Long temp = null;
 
         // To check if the email exists
         boolean check = false;
@@ -148,12 +148,7 @@ public class UserService {
             if(u.getUserEmail().equals(loginDTO.getEmail())
                     && u.getUserPass().equals(loginDTO.getPass())){
 
-                //yet to be filled, here policies and claims will be
-                // added to the list
-
-                list = u.getPolicyBookingsList();
-
-                logger.info(u.getPolicyBookingsList().toString());
+                temp = u.getUserId();
 
                 check = true;
                 break;
@@ -164,12 +159,12 @@ public class UserService {
             }
         }
 
-        // If the user-list is empty or the email is not registered
-        if (userList.isEmpty() || check == false){
-            throw new IncorrectPasswordAndEmail("Email or password is incorrect");
+        // If the  email is not registered
+        if (check == false){
+            throw new IncorrectPasswordAndEmail("Email not registered");
         }
 
-        return list;
+        return temp;
     }
 
     //Random 4 digit number generator for otp
@@ -189,5 +184,4 @@ public class UserService {
 //                            "Your OTP is : " + otp)
 //                    .create();
 //    }
-
 }
