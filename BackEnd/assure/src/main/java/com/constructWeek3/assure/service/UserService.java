@@ -167,6 +167,17 @@ public class UserService {
         return temp;
     }
 
+    public void removePhoneOTP(UserDTO userDTO) {
+        List<PhoneOTP> phoneOTPList = phoneOTP_repository.findAll();
+
+        for(PhoneOTP p : phoneOTPList){
+            if(p.getUserMobile().equals(userDTO.getUserMobile())){
+                phoneOTP_repository.delete(p);
+                break;
+            }
+        }
+    }
+
     //Random 4 digit number generator for otp
     private String otpGenerator(){
         return Math.round(Math.random()*9)

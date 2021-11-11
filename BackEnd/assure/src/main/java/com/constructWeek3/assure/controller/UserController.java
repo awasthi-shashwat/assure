@@ -40,8 +40,7 @@ public class UserController {
 
     //Authenticating and registering a new user
     @PostMapping("/user/authenticate")
-    public ResponseEntity authenticateUser(@RequestBody UserDTO userDTO) throws InvalidAlgorithmParameterException, IllegalBlockSizeException, NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-
+    public ResponseEntity authenticateUser(@RequestBody UserDTO userDTO){
         // filtering out and sending just the user mail and mobile for authentication and otp transfer to the user
         if(userDTO.getOtp().equals("")){
 
@@ -74,11 +73,18 @@ public class UserController {
 
     // Login request
     @PostMapping("/user/getUser")
-    public ResponseEntity getUserDetails(@RequestBody LoginDTO loginDTO) throws InvalidAlgorithmParameterException, IllegalBlockSizeException, NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-
+    public ResponseEntity getUserDetails(@RequestBody LoginDTO loginDTO){
         Long userId = userService.getUserDetails(loginDTO);
 
         return new ResponseEntity(userId, HttpStatus.FOUND);
+    }
+
+    // Deleting phone-otp relation
+    @PostMapping("/user/phoneotp")
+    public ResponseEntity removePhoneOTP(@RequestBody UserDTO userDTO){
+        userService.removePhoneOTP(userDTO);
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @Bean

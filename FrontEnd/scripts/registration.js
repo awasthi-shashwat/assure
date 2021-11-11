@@ -131,7 +131,34 @@ enter_btn.addEventListener('click', async(e) =>{
 let cancel = document.getElementById("cancel");
 
 cancel.addEventListener('click', async(e) =>{
-    
+    let name_input = document.getElementById("name_input").value;
+    let email_input = document.getElementById("email_input").value;
+    let mob_input = document.getElementById("mob_input").value;
+    let pass_input = document.getElementById("pass_input").value;
+    let otp_input = document.getElementById("otp").value;
+
+    e.preventDefault();
+
+    const loginData = {
+        userName : name_input,
+        userEmail : email_input,
+        userMobile : mob_input,
+        userPass : pass_input,
+        otp : otp_input
+    };
+
+    fetch("http://localhost:8070/user/phoneotp", {
+        method:"POST",
+        body: JSON.stringify(loginData),
+        mode: 'cors',
+        headers:{
+            "Content-Type":"application/json; charset=UTF-8"
+        },
+    })
+    .then((res) =>{
+        showRegister();
+        enableInput();
+    })
 })
 
 
@@ -147,11 +174,24 @@ let showOTPEnter = () =>{
     document.getElementById("otp_enter").style.visibility = "visible";
 }
 
+let showRegister = () =>{
+    document.getElementById("regis").style.visibility = "visible";
+    document.getElementById("otp_enter").style.visibility = "hidden";
+}
+
 let disableInput = () =>{
     document.getElementById("name_input").disabled = true;
     document.getElementById("email_input").disabled = true;
     document.getElementById("mob_input").disabled = true;
     document.getElementById("pass_input").disabled = true;
     document.getElementById("confirm_pass_input").disabled = true;
+}
+
+let enableInput = () =>{
+    document.getElementById("name_input").disabled = false;
+    document.getElementById("email_input").disabled = false;
+    document.getElementById("mob_input").disabled = false;
+    document.getElementById("pass_input").disabled = false;
+    document.getElementById("confirm_pass_input").disabled = false;
 }
 
