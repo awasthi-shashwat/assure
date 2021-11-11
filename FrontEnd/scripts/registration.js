@@ -29,6 +29,8 @@ submit_btn.addEventListener('click', async(e) =>{
 
     e.preventDefault();
 
+    clearAllErrors();
+
     if(pass_input == confirm_pass_input){
 
         const loginData = {
@@ -39,7 +41,7 @@ submit_btn.addEventListener('click', async(e) =>{
             otp : otp_input
         };
     
-        fetch("http://localhost:8080/user/authenticate", {
+        fetch("http://localhost:8070/user/authenticate", {
             method:"POST",
             body: JSON.stringify(loginData),
             mode: 'cors',
@@ -50,17 +52,21 @@ submit_btn.addEventListener('click', async(e) =>{
         .then((res) => {
            if(res.status == 200){
                showOTPEnter();
+               disableInput();
            }
            else{
-               r = res.json();
-               if(r.message == "Email Already Registered"){
-                document.getElementById("email_symb").style.visibility = "visible";
-                document.getElementById("email_error").style.visibility = "visible";
-               }
-               else if(r.message == "Mobile Already Registered"){
-                document.getElementById("mobile_symb").style.visibility = "visible";
-                document.getElementById("mobile_error").style.visibility = "visible";
-               }
+               res.json().then((r) => {
+                    if(r.message == "Email Already Registered"){
+                        document.getElementById("email_symb").style.visibility = "visible";
+                        document.getElementById("email_error").style.visibility = "visible";
+                        document.getElementById("email_error").innerText = "Email Already Registered";
+                    }
+                    else if(r.message == "Mobile Already Registered"){
+                        document.getElementById("mobile_symb").style.visibility = "visible";
+                        document.getElementById("mobile_error").style.visibility = "visible";
+                        document.getElementById("mobile_error").innerText = "Mobile Already Registered";
+                   }
+               })
            }
 
         })
@@ -68,14 +74,9 @@ submit_btn.addEventListener('click', async(e) =>{
     else{
         document.getElementById("confirm_symb").style.visibility = "visible";
         document.getElementById("confirm_error").style.visibility = "visible";
+        document.getElementById("confirm_error").style.innerText = "Password does not match"
     }
 })
-
-
-let showOTPEnter = () =>{
-    document.getElementById("regis").style.visibility = "hidden";
-    document.getElementById("otp_enter").style.visibility = "visible";
-}
 
 
 let enter_btn = document.getElementById("enter_btn");
@@ -85,47 +86,72 @@ enter_btn.addEventListener('click', async(e) =>{
     let email_input = document.getElementById("email_input").value;
     let mob_input = document.getElementById("mob_input").value;
     let pass_input = document.getElementById("pass_input").value;
-    let confirm_pass_input = document.getElementById("confirm_pass_input").value;
     let otp_input = document.getElementById("otp").value;
+
+    clearAllErrors();
 
     e.preventDefault();
 
-    if(pass_input == confirm_pass_input){
+    const loginData = {
+        userName : name_input,
+        userEmail : email_input,
+        userMobile : mob_input,
+        userPass : pass_input,
+        otp : otp_input
+    };
 
-        const loginData = {
-            userName : name_input,
-            userEmail : email_input,
-            userMobile : mob_input,
-            userPass : pass_input,
-            otp : otp_input
-        };
-    
-        fetch("http://localhost:8080/user/authenticate", {
-            method:"POST",
-            body: JSON.stringify(loginData),
-            mode: 'cors',
-            headers:{
-                "Content-Type":"application/json; charset=UTF-8"
-            },
-        })
-        .then((res) => {
-            if(res.status == 201){
-                res.json().then((r) => {
-                    localStorage.setItem("UserID", JSON.stringify(r));
-                    // window.location.href = ""
-                })
-            }
-            else{
-                r = res.json();
+    fetch("http://localhost:8070/user/authenticate", {
+        method:"POST",
+        body: JSON.stringify(loginData),
+        mode: 'cors',
+        headers:{
+            "Content-Type":"application/json; charset=UTF-8"
+        },
+    })
+    .then((res) => {
+        if(res.status == 201){
+            res.json().then((r) => {
+                localStorage.setItem("UserID", JSON.stringify(r));
+                window.location = "./home_navigation.htm";
+            })
+        }
+        else{
+            res.json().then((r) =>{
                 if(r.message == "Incorrect OTP entered"){
                     document.getElementById("otp_error").style.visibility = "visible";
+                    document.getElementById("otp_error").style.innerText = "Incorrect OTP entered"
                 }
-            }
+            })
+        }
 
-        })
-    }
-    else{
-        document.getElementById("confirm_symb").style.visibility = "visible";
-        document.getElementById("confirm_error").style.visibility = "visible";
-    }
+    })
+
 })
+
+let cancel = document.getElementById("cancel");
+
+cancel.addEventListener('click', async(e) =>{
+    
+})
+
+
+let clearAllErrors = () =>{
+    let vanish = document.querySelectorAll(".vanish");
+    vanish.forEach((e) => {
+        e.style.visibility = "hidden";
+    })
+}
+
+let showOTPEnter = () =>{
+    document.getElementById("regis").style.visibility = "hidden";
+    document.getElementById("otp_enter").style.visibility = "visible";
+}
+
+let disableInput = () =>{
+    document.getElementById("name_input").disabled = true;
+    document.getElementById("email_input").disabled = true;
+    document.getElementById("mob_input").disabled = true;
+    document.getElementById("pass_input").disabled = true;
+    document.getElementById("confirm_pass_input").disabled = true;
+}
+
