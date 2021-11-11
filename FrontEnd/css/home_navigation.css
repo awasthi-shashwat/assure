@@ -1,0 +1,165 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+#main {
+    width: 375px;
+    height: 859px;
+    font-family: Palanquin;
+    font-style: normal;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+}
+#topBox {
+    position: absolute;
+    width: 375px;
+    height: 322px;
+    left: 0px;
+    top: 0px;
+    background: #118592;
+    border-radius: 20px 20px 0px 0px;
+}
+#helloUser {
+    position: absolute;
+    /* width: 142px; */
+    height: 43px;
+    left: 16px;
+    top: 58px;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 43px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+}
+#membership_title {
+    position: absolute;
+    /* width: 46px; */
+    height: 29px;
+    left: 16px;
+    top: 113px;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 29px;
+    /* identical to box height */
+    color: #FFFFFF;
+}
+#membership_no {
+    position: absolute;
+    /* width: 211px; */
+    height: 36px;
+    left: 16px;
+    top: 130px;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 36px;
+    color: #FFFFFF;
+}
+#view_head {
+    position: absolute;
+    /* width: 125px; */
+    height: 20px;
+    left: 16px;
+    top: 178px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    /* identical to box height, or 125% */
+    color: #FFFFFF;
+}
+#scheme {
+    position: absolute;
+    /* width: 180px; */
+    height: 36px;
+    left: 16px;
+    top: 196px;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 36px;
+    color: #FFFFFF;
+}
+#claim_card {
+    margin-top: 246px;
+    margin-inline: 16px;
+    width: 343px;
+    height: 229px;
+    position: relative;
+    background: linear-gradient(90deg, #FFFFFF 0%, #C7DBDE 100%);
+    border-radius: 10px;
+}
+#getAssured {
+    position: absolute;
+    left: 8.45%;
+    right: 44.31%;
+    top: 21.83%;
+    bottom: 46.72%;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    align-items: center;
+    color: #063035;
+}
+#cardView {
+    position: absolute;
+    left: 8.45%;
+    right: 62.39%;
+    top: 60.26%;
+    bottom: 22.27%;
+    padding-inline: 28px;
+    background: #118592;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 25px;
+    cursor: pointer;
+}
+#vaccine_icon {
+    height: 120px;
+    float: right;
+    margin-top: 15%;
+    margin-right: 5%;
+}
+#exploreClaim {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-top: 40px;
+}
+#exploreClaim > button {
+    border-radius: 10px;
+    background: #118592;
+    outline: none;
+    border: none;
+    width: 82px;
+    height: 82px;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 22px;
+}
+#card_below {
+    position: absolute;
+    width: 343px;
+    height: 126px;
+    left: 16px;
+    top: 644px;
+    background: linear-gradient(90deg, #C5EBEF 14.29%, rgba(6, 48, 53, 0) 100%), url("../images/close-up-stethoscope.jpg") no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+}
+#below_labl {
+    margin-top: 20%;
+    margin-left: 10%;
+    width: 144px;
+    height: 42px;
+    left: 45px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 14px;
+    color: #063035;
+}
