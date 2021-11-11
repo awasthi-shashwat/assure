@@ -1,26 +1,52 @@
 package com.constructWeek3.assure.controller;
 
 import com.constructWeek3.assure.dto.ClaimDTO;
-import com.constructWeek3.assure.dto.PolicyBookingInputDTO;
+import com.constructWeek3.assure.dto.ToClaimDTO;
 import com.constructWeek3.assure.entity.Claim;
 import com.constructWeek3.assure.service.ClaimService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class ClaimController<T> {
     @Autowired
     ClaimService claimService;
 
-    @PostMapping("/claim/{policyId}/{userId}/{memberId}")
-    public ResponseEntity<Claim> claimInsurance(@PathVariable Long policyId, @PathVariable Long userId, @PathVariable Long memberId, @RequestBody ClaimDTO claimDTO) {
-        ClaimDTO claimInsuranceDTO = claimService.claimInsurance(policyId, userId, memberId, claimDTO);
-        return new ResponseEntity(claimInsuranceDTO, HttpStatus.CREATED);
+    @Autowired
+    ModelMapper modelMapper;
+
+    @PostMapping("/claim/{policyBookingId}/{userId}/{memberId}")
+    public ToClaimDTO claimInsurance(@PathVariable Long policyBookingId, @PathVariable Long userId, @PathVariable Long memberId, @RequestBody ToClaimDTO toClaimDTO) {
+        Claim claim = new Claim();
+        modelMapper.map(toClaimDTO, claim);
+        String hospitalName = toClaimDTO.getHospitalName();
+        Claim claimInsurance = claimService.claimInsurance(policyBookingId, userId, memberId, claim, hospitalName);
+
+        ToClaimDTO returnClaimDTO = new ToClaimDTO();
+        modelMapper.map(claimInsurance, returnClaimDTO);
+        returnClaimDTO.setNameOfMember(claimInsurance.getMember().getName());
+        if (claimInsurance.getHospitals()!=null) returnClaimDTO.setHospitalName(claimInsurance.getHospitals().getName());
+        return returnClaimDTO;
+    }
+
+    @GetMapping("/claim/{userId}")
+    public List<ClaimDTO> getAllTheClaims(@PathVariable Long userId){
+        List<Claim> list = claimService.getAllTheClaims(userId);
+        List<ClaimDTO> listOfClaimDTO = new ArrayList<>();
+        for(int i=0;i<list.size();i++){
+            ClaimDTO claimDTO = new ClaimDTO();
+            modelMapper.map(list.get(i), claimDTO);
+            listOfClaimDTO.add(claimDTO);
+            claimDTO.setNameOfMember(list.get(i).getMember().getName());
+            claimDTO.setPolicyBookingName(list.get(i).getPolicyBookings().getPolicyName());
+        }
+
+        return listOfClaimDTO;
     }
 }

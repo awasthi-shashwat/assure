@@ -1,5 +1,6 @@
 package com.constructWeek3.assure.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -40,6 +41,7 @@ public class Policy {
 
     @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private Set<Location> locations = new HashSet<>();
+
 
     @OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private Set<PolicyBookings> policyBookings = new HashSet<>();

@@ -16,11 +16,22 @@ import java.util.List;
 @ToString
 public class Claim {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Date dateOfClaim;
+    private String type;
+    private String name;
+    private Long aadharNumber;
+
+    @ManyToOne
+    private Hospitals hospitals;
+
     private Date dateOfTreatment;
+    private Date submissionDate;
+    private String status;
+    private String claimItem;
     private Float amountToClaim;
+    private Boolean preauthorizedConfirmation;
+    private Boolean followUpVisits;
 
     @OneToMany
     @JoinColumn(name="claim_id")
@@ -28,6 +39,9 @@ public class Claim {
 
     @ManyToOne
     private Members member;
+
+    @ManyToOne
+    private User user;
 
     @ManyToOne
     private PolicyBookings policyBookings;
