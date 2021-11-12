@@ -86,7 +86,8 @@ button {
     color: #FFFFFF;
 }
 #claimCard {
-    display: none;
+    /* display: none; */
+    display: block;
     margin-top: 246px;
     margin-inline: 16px;
     width: 343px;
@@ -96,7 +97,8 @@ button {
     border-radius: 10px;
 }
 #claim_card {
-    display: block;
+    /* display: block; */
+    display: none;
     margin-top: 246px;
     margin-inline: 16px;
     width: 343px;

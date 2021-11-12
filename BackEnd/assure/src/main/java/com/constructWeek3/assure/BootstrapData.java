@@ -41,6 +41,7 @@ public class BootstrapData implements CommandLineRunner{
         PolicyBookings policyBooked = policyBookingsRepository.findById(1L).get();
         claim.setPolicyBookings(policyBooked);
         claim.setDateOfTreatment(new Date());
+        claim.setSubmissionDate(new Date());
         claim.setStatus("Processing");
 
         claimsRepository.save(claim);
