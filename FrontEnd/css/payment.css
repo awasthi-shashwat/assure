@@ -83,10 +83,10 @@ button {
 .field_inp:focus {
     outline: 1px solid #47d6e6;
 }
-#route_img {
+.route_img {
     height: 43px;
     margin-top: 24px;
-    margin-left: 5%;
+    margin-left: 3%;
     margin-bottom: 8px;
 }
 #cvv_div {
@@ -133,5 +133,67 @@ select::-ms-expand {
     width: 343px;
     margin-left: 16px;
     height: 48px;
-    margin-top: 280px;
+    margin-top: 190px;
+}
+#paymentDone {
+    background: #118592;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 25px;
+    width: 280px;
+    height: 48px;
+    margin-top: 51px;
+}
+#otpbox {
+    visibility: visible;
+}
+#visibleRegion {
+    display: none;
+}
+#processing {
+    display: none;
+    height: 740px;
+    margin-top: 60%;
+    text-align: center;
+}
+#processing > p {
+    margin-top: 23px;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 29px;
+    color: black;
+}
+#rolling {
+    width: 210px;
+}
+#payment_success_section {
+    display: block;
+    text-align: center;
+    height: 740px;
+    background: white;
+}
+#content_success {
+    padding-inline: 45px;
+}
+#congrats {
+    margin-top: 51px;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+    color: #7B7E84;
+}
+#success_img {
+    margin-top: 40px;
+}
+#success_msg {
+    margin-top: 21px;
+    font-size: 14px;
+    line-height: 20px;
+    align-items: center;
+    text-align: center; 
+    color: #7B7E84;
 }
