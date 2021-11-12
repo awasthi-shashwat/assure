@@ -33,8 +33,8 @@ public class MembersController {
    @PutMapping("/put/member/")
     public MembersDTO updatemember(@RequestBody MembersDTO membersDTO){
         return membersService.updatemember(membersDTO);
-
    }
+
    @DeleteMapping("/delete/member/{id}")
     public String deletemember(@PathVariable Long id){
 
