@@ -298,7 +298,7 @@ body{
 
 #otp_error{
     position: absolute;
-    width: 100px;
+    width: 250px;
     height: 14px;
     left: 37%;
     top: 19.5%;

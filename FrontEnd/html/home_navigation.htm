@@ -37,6 +37,55 @@
             <button id="cardView">View</button>
             <img id="vaccine_icon" src="../icons/vaccine.png" alt="">
         </div>
+        <!-- Display of #claimCard is made none, when claim would be there it would be enabled #claim_card won't be displayed -->
+        <div id="claimCard">
+            <p class="policyName">
+                Latest Claim
+            </p>
+            <div id="upClaimCard">
+                <div>
+                    <p class="product_title">
+                        Voucher No.
+                    </p>
+                    <p id="claimId" class="insurance_type">
+                        25484256
+                    </p>
+                </div>
+                <div class="left_valid">
+                    <p class="valid_title">
+                        Submit Date
+                    </p>
+                    <p id="claimValidThru" class="valid_thru">
+                        11/12/2021
+                    </p>
+                </div>
+            </div>
+            
+            <div class="cover_block">
+                <span>
+                    <p class="cover_title">
+                        Benefit Item
+                    </p>
+                    <p id="benefitItem" class="cover_amount">
+                        Specialist
+                    </p>
+                </span>
+                <span class="left_valid">
+                    <p class="valid_title">
+                        Claim Status
+                    </p>
+                    <p id="claimStatus" class="valid_thru">
+                        Processing
+                    </p>
+                </span>
+            </div>
+            <div class="details_div">
+                <p class="view_details">
+                    View Details
+                </p>
+                <img src="../icons/detail.svg" alt="" class="detail_arrow">
+            </div>
+        </div>
         <div id="exploreClaim">
             <button id="explore">
                 <img src="../icons/explore.svg" alt="">
