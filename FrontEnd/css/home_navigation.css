@@ -11,7 +11,7 @@ button {
 }
 #main {
     width: 375px;
-    height: 600px;
+    height: 812px;
     font-family: Palanquin;
     font-style: normal;
     background: rgba(255, 255, 255, 0.9);
@@ -85,7 +85,18 @@ button {
     line-height: 36px;
     color: #FFFFFF;
 }
+#claimCard {
+    display: none;
+    margin-top: 246px;
+    margin-inline: 16px;
+    width: 343px;
+    height: 229px;
+    position: absolute;
+    background: #FFFFFF;
+    border-radius: 10px;
+}
 #claim_card {
+    display: block;
     margin-top: 246px;
     margin-inline: 16px;
     width: 343px;
@@ -167,4 +178,97 @@ button {
     font-size: 14px;
     line-height: 14px;
     color: #063035;
+}
+.policyName {
+    /* position: absolute; */
+    margin-top: 27px;
+    margin-left: 40px;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 25px;
+    color: #118592;
+}
+.cover_block {
+    margin-top: 18px;
+    border-bottom: 1px solid #C4C4C4;
+    display: flex;
+    justify-content: space-between;
+}
+.cover_title {
+    margin-left: 41px;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 18px;
+    color: #7B7E84;
+}
+.cover_amount {
+    /* position: absolute; */
+    margin-left: 41px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 25px;
+    margin-bottom: 20px;
+    color: #000000;
+}
+.valid_title {
+    /* position: absolute; */
+    margin-right: 79px;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 18px;
+    color: #7B7E84;
+}
+.valid_thru {
+    /* position: absolute; */
+    margin-right: 49px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 25px;
+    color: #000000;
+}
+.details_div {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+
+}
+.view_details {
+    /* position: absolute; */
+    margin-top: 7px;
+    /* margin-bottom: 15px; */
+    margin-left: 38px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 25px;
+    text-align: center;
+    color: #118592;
+}
+.detail_arrow {
+    margin-top: 8px;
+    margin-right: 39px;
+}
+#upClaimCard {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+.product_title {
+    /* position: absolute; */
+    margin-left: 41px;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 18px;
+    color: #7B8384;
+}
+.insurance_type {
+    /* position: absolute; */
+    margin-top: 1px;
+    margin-left: 41px;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 25px;
+    color: #000000;
+}
+#upClaimCard {
+    margin-top: 6px;
 }
