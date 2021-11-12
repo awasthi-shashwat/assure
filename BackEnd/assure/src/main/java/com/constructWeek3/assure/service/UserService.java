@@ -170,6 +170,19 @@ public class UserService {
         // To check if the email exists
         boolean check = false;
 
+        if(loginDTO.getEmail().equals("")){
+            throw new EmptyInputException("Enter email");
+        }
+        else if(!loginDTO.getEmail().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$")){
+            throw new InvalidEmailException("Enter correct email");
+        }
+        else if(loginDTO.getPass().equals("")){
+            throw new EmptyInputException("Enter pass");
+        }
+        else if(loginDTO.getPass().length() <= 4){
+            throw new EmptyInputException("Password should be more that 4 characters");
+        }
+
         for(User u : userList){
             // checking and adding the policies and claims to the arraylist
             if(u.getUserEmail().equals(loginDTO.getEmail())

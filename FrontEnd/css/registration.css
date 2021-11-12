@@ -52,8 +52,8 @@ body{
 
 .main_container{
     position: relative;
-    width: 375px;
-    height: 812px;
+    width: 385px;
+    height: 842px;
     background-color: #FFFFFF;
     border-radius: 20px;
     border: 1px solid black;
@@ -298,7 +298,7 @@ body{
 
 #otp_error{
     position: absolute;
-    width: 100px;
+    width: 250px;
     height: 14px;
     left: 37%;
     top: 19.5%;
