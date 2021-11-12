@@ -305,7 +305,7 @@
             <div>Total Premium</div>
             <div id="finalPremium">Rs. 8,700/-</div>
         </div>
-        <div>Continue</div>
+        <div id="continue" onclick="nextPage()">Continue</div>
     </div>
 </body>
 </html>
@@ -317,5 +317,8 @@
         let thatDiv = document.getElementById("finalPremium");
         thatDiv.innerText = "Rs. " + amount*year;
         console.log(year, amount);
+    }
+    function nextPage(){
+        window.location.href = "./self_details.html";
     }
 </script>

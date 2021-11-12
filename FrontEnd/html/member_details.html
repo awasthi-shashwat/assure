@@ -121,6 +121,8 @@
             flex-direction: row;
             background-color: white;
             padding-bottom: 12px;
+            position: fixed;
+            bottom: 0px;
         }
         #footer div{
             background-color: white;
@@ -174,16 +176,16 @@
 <body>
     <div id="header">
         <div>
-           <div id="backButton" onclick="history.back()"><</div>
+           <div id="backButton"><</div>
         </div>
         <div id="policyName">Max Bupa</div>
     </div>
     <div id = stepNumber>
-        <img src="../icons/explore_details.svg">
+        <img src="../icons/status_2.svg">
     </div>
     <div id="static1">
         <div>Great!</div>
-        <div>Let's fill the details first</div>
+        <div>Let's fill the Member's Details</div>
     </div>
     <div id="static2">Tell us about yourself </div>
     <div class="entry">
@@ -214,14 +216,18 @@
     </div>
 
     <div class="entry">
-        <div>Email</div>
-        <div><input type="email"></div>
+        <div>DOB</div>
+        <div><input type="date" placeholder="dd/mm/yyyy"></div>
+    </div>
+   <div class="entry">
+        <div>Occupation</div>
+        <div><input type="text"></div>
     </div>
     <div class="entry">
-        <div>Mobile no.</div>
-        <div><input type="tel"></div>
+        <div>Weight</div>
+        <div><input type="number" placeholder="in Kg."> </div>
     </div>
-
+    <br><br><br>
     <div id="footer">
         <div>
             <div>Total Premium</div>
