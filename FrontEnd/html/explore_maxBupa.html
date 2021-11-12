@@ -270,7 +270,7 @@
                 Medical treatment are getting costliar day by day. Higher the cover better it is. 
             </div>
             <div>
-                <select name="Amount" id="amount">
+                <select name="Amount" id="amount" onclick="calculatePremium()">
                     <option value="5">Rs. 5 lakh</option>
                     <option value="5.5">Rs. 5.5 lakh</option>
                     <option value="6">Rs. 6 lakh</option>
@@ -291,7 +291,7 @@
                 The longer your tenure of the insurance is, mininum will be the yaerly premium
             </div>
             <div>
-                <select name="year" id="year">
+                <select name="year" id="year" onclick="calculatePremium()">
                     <option value="1">1 Year</option>
                     <option value="2">2 Year</option>
                     <option value="3">3 Year</option>
@@ -303,9 +303,19 @@
     <div id="footer">
         <div>
             <div>Total Premium</div>
-            <div>Rs. 8,700/-</div>
+            <div id="finalPremium">Rs. 8,700/-</div>
         </div>
         <div>Continue</div>
     </div>
 </body>
 </html>
+<script>
+    function calculatePremium(){
+        let amount = document.getElementById("amount").value;
+        let year = document.getElementById("year").value;
+
+        let thatDiv = document.getElementById("finalPremium");
+        thatDiv.innerText = "Rs. " + amount*year;
+        console.log(year, amount);
+    }
+</script>
