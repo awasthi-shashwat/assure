@@ -68,7 +68,7 @@ public class UserController {
     public ResponseEntity getUserDetails(@RequestBody LoginDTO loginDTO){
         Long userId = userService.getUserDetails(loginDTO);
 
-        return new ResponseEntity(userId, HttpStatus.FOUND);
+        return new ResponseEntity(userId, HttpStatus.OK);
     }
 
     // Deleting phone-otp relation
