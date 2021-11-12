@@ -13,6 +13,7 @@ import java.util.*;
 public class PolicyBookingsGetListDTO {
 
     private Long bookingId;
+    private String userName;
     private Date bookingDate;
     private Float coverAmount;
     private Float premium;

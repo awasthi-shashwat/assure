@@ -183,8 +183,12 @@ public class PolicyBookingsService {
         modelMapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.LOOSE);
 
-        return modelMapper.map(policyBookings, new TypeToken<List<PolicyBookingsGetListDTO>>() {}.getType());
-
+        List<PolicyBookingsGetListDTO> list = modelMapper.map(policyBookings, new TypeToken<List<PolicyBookingsGetListDTO>>() {}.getType());
+        for (PolicyBookingsGetListDTO policy :
+                list) {
+            policy.setUserName(user.get().getUserName());
+        }
+        return list;
     }
 
     public Boolean validateMember(MembersDTO member) throws Exception{

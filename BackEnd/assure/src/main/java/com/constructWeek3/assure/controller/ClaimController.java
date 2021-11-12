@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class ClaimController<T> {
     @Autowired
     ClaimService claimService;
@@ -42,8 +43,10 @@ public class ClaimController<T> {
         for(int i=0;i<list.size();i++){
             ClaimDTO claimDTO = new ClaimDTO();
             modelMapper.map(list.get(i), claimDTO);
+            claimDTO.setUserName(claimService.getUserName(userId));
             listOfClaimDTO.add(claimDTO);
             claimDTO.setNameOfMember(list.get(i).getMember().getName());
+            claimDTO.setMemberId(list.get(i).getMember().getMember_id());
             claimDTO.setPolicyBookingName(list.get(i).getPolicyBookings().getPolicyName());
         }
 

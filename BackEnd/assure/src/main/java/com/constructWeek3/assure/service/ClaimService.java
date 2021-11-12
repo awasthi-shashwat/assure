@@ -3,6 +3,7 @@ package com.constructWeek3.assure.service;
 import com.constructWeek3.assure.dto.ClaimDTO;
 import com.constructWeek3.assure.dto.PolicyBookingInputDTO;
 import com.constructWeek3.assure.entity.*;
+import com.constructWeek3.assure.exception.UserDoesNotExistException;
 import com.constructWeek3.assure.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,11 @@ public class ClaimService {
     HospitalsRepository hospitalsRepository;
 
 
+    public String getUserName(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isEmpty()) throw new UserDoesNotExistException("Invalid User Id.");
+        return user.get().getUserName();
+    }
 
     public Claim claimInsurance(Long policyBookingId, Long userId, Long memberId, Claim claim, String hospitalName) {
         claim.setSubmissionDate(new Date());

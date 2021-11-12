@@ -20,6 +20,8 @@ import java.util.List;
 public class ClaimDTO {
 
     private Long id;
+    private Long memberId;
+    private String userName;
     private Date dateOfClaim;
     private Float amountToClaim;
     private Date submissionDate;

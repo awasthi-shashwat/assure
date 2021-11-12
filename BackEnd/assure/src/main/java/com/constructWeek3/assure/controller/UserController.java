@@ -1,6 +1,7 @@
 package com.constructWeek3.assure.controller;
 
 import com.constructWeek3.assure.dto.LoginDTO;
+import com.constructWeek3.assure.dto.PolicyBookingsGetListDTO;
 import com.constructWeek3.assure.dto.UserDTO;
 import com.constructWeek3.assure.service.UserService;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
@@ -13,15 +14,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJacksonValue;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -29,6 +28,12 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<String> getUserName(@PathVariable Long userId) {
+        String userName = userService.getUserName(userId);
+        return new ResponseEntity<>(userName, HttpStatus.FOUND);
+    }
 
     //Authenticating and registering a new user
     @PostMapping("/user/authenticate")

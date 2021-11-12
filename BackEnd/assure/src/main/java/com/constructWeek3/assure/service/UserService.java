@@ -23,6 +23,7 @@ import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -225,6 +226,12 @@ public class UserService {
                 + "" + Math.round(Math.random()*9)
                 + "" + Math.round(Math.random()*9)
                 + "" + Math.round(Math.random()*9);
+    }
+
+    public String getUserName(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isEmpty()) throw new UserDoesNotExistException("Invalid User Id.");
+        return user.get().getUserName();
     }
 
     // Send otp to the user
