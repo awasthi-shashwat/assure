@@ -26,12 +26,20 @@
     color: #118592;
 }
 
+.font_color_2{
+    color: #FFFFFF;
+}
+
 .backgroung_color_1{
     background: #118592;
 }
 
 .position{
     position: absolute;
+}
+
+.visible{
+    visibility: hidden;
 }
 
 
@@ -141,26 +149,106 @@ body{
     left: 57px;
     border-bottom: 1px solid #C4C4C4;
     outline: none;
+    color: #063035;
 }
 
 #name_input{
     top: 325px;
 }
 
+#name_error{
+    position: absolute;
+    width: 200px;
+    height: 14px;
+    left: 15%;
+    top: 44%;
+}
+
+#name_symb{
+    position: absolute;
+    left: 76%;
+    top: 41%;
+}
+
 #email_input{
     top: 382px;
+}
+
+#email_error{
+    position: absolute;
+    width: 200px;
+    height: 14px;
+    left: 15%;
+    top: 51%;
+}
+
+#email_symb{
+    position: absolute;
+    left: 76%;
+    top: 48%;
 }
 
 #mob_input{
     top: 439px;
 }
 
+#mobile_error{
+    position: absolute;
+    width: 200px;
+    height: 14px;
+    left: 15%;
+    top: 58%;
+}
+
+#mobile_symb{
+    position: absolute;
+    left: 76%;
+    top: 55%;
+}
+
 #pass_input{
     top: 496px;
 }
 
+#pass_error{
+    position: absolute;
+    width: 250px;
+    height: 14px;
+    left: 15%;
+    top: 65%;
+}
+
+#pass_symb{
+    position: absolute;
+    left: 76%;
+    top: 62%;
+}
+
 #confirm_pass_input{
     top: 553px;
+}
+
+#confirm_error{
+    position: absolute;
+    width: 250px;
+    height: 14px;
+    left: 15%;
+    top: 72%;
+}
+
+#confirm_symb{
+    position: absolute;
+    left: 76%;
+    top: 69%;
+}
+
+.error{
+    font-family: Palanquin;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 14px;
+    color: #F41414;
 }
 
 #submit_btn{
@@ -180,7 +268,6 @@ body{
     font-size: 14px;
     line-height: 25px;
     text-align: center;
-    color: #FFFFFF;
 }
 
 #already{
@@ -191,4 +278,54 @@ body{
     font-size: 12px;
     line-height: 22px;
     text-align: center;
+}
+
+#otp_enter{
+    width: 375px;
+    height: 174px;
+    left: 0px;
+    top: 638px;
+    background: #FFFFFF;
+    border-radius: 20px;
+}
+
+#otp{
+    width: 300px;
+    height: 33px;
+    left: 37px;
+    text-align: center;
+}
+
+#otp_error{
+    position: absolute;
+    width: 100px;
+    height: 14px;
+    left: 37%;
+    top: 19.5%;
+}
+
+.enter_btn{
+    width: 160px;
+    height: 40px;
+    left: 106px;
+    top: 35%;
+    border-radius: 8px;
+}
+
+#ent{
+    top: 20%;
+    left: 40%;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 25px;
+}
+
+#cancel{
+    width: 42px;
+    height: 25px;
+    left: 167px;
+    top: 61%;
+    font-weight: 600;
+    font-size: 14px; 
+    line-height: 25px;
 }
