@@ -22,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.stereotype.Service;
 
-
 import java.util.List;
 
 @Service
@@ -47,12 +46,37 @@ public class UserService {
     public static final String AUTH_TOKEN = "68aeb1e333ea5c6efd11a80def2b73ee";
 
     // Authenticating the user
-    public void authenticateUser(MappingJacksonValue mappingJacksonValue) {
+    public void authenticateUser(MappingJacksonValue mappingJacksonValue){
 
         AuthenticateUserDTO authenticateUserDTO = modelMapperClass.modelMapper()
                 .map(mappingJacksonValue.getValue(), new TypeToken<AuthenticateUserDTO>() {}.getType());
 
         List<User> userList = userRepository.findAll();
+
+        if(authenticateUserDTO.getUserName().equals("")){
+            throw new EmptyInputException("Enter name");
+        }
+        else if (authenticateUserDTO.getUserName().length() <= 2){
+            throw new EmptyInputException("Name should be more than 2 characters");
+        }
+        else if(authenticateUserDTO.getUserEmail().equals("")){
+            throw new EmptyInputException("Enter email");
+        }
+        else if(!authenticateUserDTO.getUserEmail().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$")){
+            throw new InvalidEmailException("Enter correct email");
+        }
+        else if(authenticateUserDTO.getUserMobile().equals("")){
+            throw new EmptyInputException("Enter mobile");
+        }
+        else if(!authenticateUserDTO.getUserMobile().matches("\\d{10}")){
+            throw new InvalidMobileNumberException("Enter correct mobile number");
+        }
+        else if(authenticateUserDTO.getUserPass().equals("")){
+            throw new EmptyInputException("Enter pass");
+        }
+        else if(authenticateUserDTO.getUserPass().length() <= 4){
+            throw new EmptyInputException("Password should be more that 4 characters");
+        }
 
         for(User i : userList){
             if(i.getUserEmail().equals(authenticateUserDTO.getUserEmail())){
@@ -65,6 +89,7 @@ public class UserService {
 
         List<PhoneOTP> phoneOTPList = phoneOTP_repository.findAll();
 
+        // checking if the phone number matches the otp
         if (!phoneOTPList.isEmpty()){
             for (PhoneOTP p : phoneOTPList){
                 if (p.getUserMobile().equals(authenticateUserDTO.getUserMobile())){
@@ -72,6 +97,7 @@ public class UserService {
                 }
             }
 
+            //generate 4 digit number
             String otp = otpGenerator();
 
             logger.info(otp);
@@ -84,12 +110,15 @@ public class UserService {
         }
         else{
 
+            //generate 4 digit number
             String otp = otpGenerator();
 
             logger.info(otp);
 
+            // method to send sms to the user
 //            sendSMS(authenticateUserDTO.getUserMobile(),otp);
 
+            // saving mobile no. and otp for authentication
             phoneOTP_repository.save(new PhoneOTP(authenticateUserDTO.getUserMobile(), otp));
         }
 
@@ -136,12 +165,23 @@ public class UserService {
     public Long getUserDetails(LoginDTO loginDTO){
         List<User> userList = userRepository.findAll();
 
-        String encryptID = "";
-
         Long temp = null;
 
         // To check if the email exists
         boolean check = false;
+
+        if(loginDTO.getEmail().equals("")){
+            throw new EmptyInputException("Enter email");
+        }
+        else if(!loginDTO.getEmail().matches("^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$")){
+            throw new InvalidEmailException("Enter correct email");
+        }
+        else if(loginDTO.getPass().equals("")){
+            throw new EmptyInputException("Enter pass");
+        }
+        else if(loginDTO.getPass().length() <= 4){
+            throw new EmptyInputException("Password should be more that 4 characters");
+        }
 
         for(User u : userList){
             // checking and adding the policies and claims to the arraylist
@@ -165,6 +205,18 @@ public class UserService {
         }
 
         return temp;
+    }
+
+    // user pressing cancel button will remove phone-otp relation in db
+    public void removePhoneOTP(UserDTO userDTO) {
+        List<PhoneOTP> phoneOTPList = phoneOTP_repository.findAll();
+
+        for(PhoneOTP p : phoneOTPList){
+            if(p.getUserMobile().equals(userDTO.getUserMobile())){
+                phoneOTP_repository.delete(p);
+                break;
+            }
+        }
     }
 
     //Random 4 digit number generator for otp
