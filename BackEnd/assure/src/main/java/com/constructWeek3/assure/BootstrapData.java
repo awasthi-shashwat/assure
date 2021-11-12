@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
-public class BootstrapData implements CommandLineRunner {
+public class BootstrapData implements CommandLineRunner{
     @Autowired
     ClaimsRepository claimsRepository;
 
@@ -29,6 +29,7 @@ public class BootstrapData implements CommandLineRunner {
     PolicyBookingsRepository policyBookingsRepository;
     @Override
     public void run(String... args) throws Exception {
+
         Members member = membersRepository.findById(1L).get();
         User user = userRepository.findById(1L).get();
         Claim claim = new Claim();
