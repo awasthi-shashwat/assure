@@ -99,7 +99,7 @@ public class PolicyBookingsService {
 
     }
 
-    public PolicyBookingInputDTO bookPolicy(Long userId, Long policyId, PolicyBookingInputDTO policyBookingInputDTO) throws ParseException, Exception {
+    public PolicyBookingInputDTO bookPolicy(Long userId, Long policyId, PolicyBookingInputDTO policyBookingInputDTO) throws Exception {
 
         //Checking for any inconsistency in the input data
 
