@@ -3,6 +3,7 @@ let processingSection = document.getElementById("processing");
 let doneSection = document.getElementById("payment_success_section");
 
 let cardButtton = document.getElementById('paybutton');
+let successButton = document.getElementById('paymentDone');
 let cardNumber = document.getElementById('number_debit');
 let cardName = document.getElementById('name');
 let expiryYear = document.getElementById('expiryyear')
@@ -36,7 +37,11 @@ function validateCardNumber(cardNumb) {
 function validateCvv(cardNumb) {
     return (Number(cardNumb.length) === 3);
 }
+function bookPolicy() {
+    
+    //Here policy will be booked by fetching data from local storage and doing api post request
 
+}
 cardButtton.addEventListener('click', (e) => {
 
     e.preventDefault();
@@ -59,14 +64,23 @@ cardButtton.addEventListener('click', (e) => {
             return;
         }
         sendOtp();
+        document.getElementById('otpbox').style.visibility = "visible";
         isOtpEnterred = true;
 
     } else {
         if (validateOtp(otp.value)) {
-            visibleSection.style.display = none;
+            visibleSection.style.display = "none";
+            processingSection.style.display = "block";
+            setTimeout(() => {
+                bookPolicy();
+                processingSection.style.display = "none";
+                doneSection.style.display = "block";
+            }, 2000);
         }
     }
-    
-    //Redirection post validation
 
+});
+
+successButton.addEventListener('click', () => {
+    window.location = "./home_navigation.htm";
 });
