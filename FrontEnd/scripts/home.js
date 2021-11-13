@@ -11,6 +11,9 @@ let membership_title = document.getElementById('membership_title');
 let membership_no = document.getElementById('membership_no');
 let claim_card = document.getElementById('claim_card');
 let claimCard = document.getElementById('claimCard');
+let exploreButt = document.getElementById('explore');
+
+exploreButt.onclick
 
 async function loadUser() {
     
@@ -38,3 +41,4 @@ async function loadUser() {
 }
 
 window.onload = loadUser();
+

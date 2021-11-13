@@ -209,7 +209,7 @@ button {
 .navIcon:hover {
     border-top: 4px solid #60d1dd;
 }
-#profileIcon, #profileIcon:hover {
+#moreIcon, #moreIcon:hover {
     border-top: 4px solid #118592;
 }
 #bottomNavbar {
