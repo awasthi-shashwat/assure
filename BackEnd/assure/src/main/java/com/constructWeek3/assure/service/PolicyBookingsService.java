@@ -1,17 +1,12 @@
 package com.constructWeek3.assure.service;
 
+import com.constructWeek3.assure.dto.HospitalLocationDTO;
 import com.constructWeek3.assure.dto.MembersDTO;
 import com.constructWeek3.assure.dto.PolicyBookingInputDTO;
 import com.constructWeek3.assure.dto.PolicyBookingsGetListDTO;
-import com.constructWeek3.assure.entity.Members;
-import com.constructWeek3.assure.entity.Policy;
-import com.constructWeek3.assure.entity.PolicyBookings;
-import com.constructWeek3.assure.entity.User;
+import com.constructWeek3.assure.entity.*;
 import com.constructWeek3.assure.exception.*;
-import com.constructWeek3.assure.repository.MembersRepository;
-import com.constructWeek3.assure.repository.PolicyBookingsRepository;
-import com.constructWeek3.assure.repository.PolicyRepository;
-import com.constructWeek3.assure.repository.UserRepository;
+import com.constructWeek3.assure.repository.*;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.modelmapper.convention.MatchingStrategies;
@@ -211,6 +206,29 @@ public class PolicyBookingsService {
         if (!isValidAadhaar(member.getAadhaar())) throw new InvalidAadhaarNumberException("An invalid aadhaar number has been entered");
 
         return true;
+
+    }
+
+    public List<HospitalLocationDTO> fetchHospitals(Long userId) {
+
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isEmpty()) throw new UserDoesNotExistException("No policy bookings could be found because the User does not exist!");
+
+        List<HospitalLocationDTO> list = new ArrayList<>();
+        List<PolicyBookings> policyBookings = user.get().getPolicyBookingsList();
+
+        for (PolicyBookings policy :
+                policyBookings) {
+
+            Set<Hospitals> hospitals = policy.getPolicy().getHospitals();
+            for (Hospitals hospital :
+                    hospitals) {
+                list.add(new HospitalLocationDTO(policy.getPolicyName(), hospital.getLocation().getName(), hospital.getName()));
+            }
+
+        }
+
+        return list;
 
     }
 }

@@ -1,9 +1,7 @@
 package com.constructWeek3.assure.dto;
 
 import com.constructWeek3.assure.entity.Hospitals;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,8 +9,13 @@ import java.util.Set;
 @Data
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class HospitalLocationDTO {
 
-    private Set<Hospitals> hospitals = new HashSet<>();
+//    private Long bookingId;
+    private String policyName;
+    private String Location;
+    private String Hospital;
 
 }
