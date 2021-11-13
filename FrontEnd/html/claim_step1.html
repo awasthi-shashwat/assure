@@ -25,21 +25,22 @@
 
 
     <form action="" class="padding-1">
-        <label for="select_location" class="mt-3 mb-3">Policy</label>
+      
+      <label for="select_policy" class="mt-3 mb-3">Policy</label>
+        <input id="select_policy" placeholder="Select Policy" class="form-select"> </input>
 
-        <input id="select_location" placeholder="Select Policy" class="form-select"> </input>
         <label for="select_location" class="mt-3 mb-3">Location</label>
-
         <input id="select_location" placeholder="Select Location" class="form-select"> </input>
-        <label for="select_location" class=" mt-3 mb-3">Hospital</label>
 
-        <input id="select_location" placeholder="Select Hospital" class="form-select"> </input>
-      <a href="tel:9888544411" id="call_icon" class="d-none float-end mt-5"><img src="../icons/call.svg" alt=""></a>
+        <label for="select_hospital" class=" mt-3 mb-3">Hospital</label>
+        <input id="select_hospital" placeholder="Select Hospital" class="form-select"> </input>
+      
+        <a href="tel:9888544411" id="call_icon" class="d-none float-end mt-5"><img src="../icons/call.svg" alt=""></a>
         <div class="form_button_div">
 
         
           <a href="./directClaim.html" class="buttonOutline" role="button">Back</a>
-            <a href="./claim_step2.html" class="buttonfill" role="button">Next</a>
+            <a  class="buttonfill" role="button" onclick="storedetails()">Next</a>
         </div>
         </form>
         <script src="../scripts/claimStep1.js"></script>
