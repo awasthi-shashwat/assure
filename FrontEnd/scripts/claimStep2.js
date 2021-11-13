@@ -16,6 +16,11 @@ setTimeout(()=>{
     img.classList.add("d-block"); 
     document.getElementById("processing").classList.add('d-none');
    document.getElementById("content_success").classList.remove('d-none');
+
   },2000);
 
+}
+function removelclstg(){
+    localStorage.removeItem('choosen_claim');
+    location.href="../html/home_navigation.htm"
 }
