@@ -3,6 +3,12 @@ document.getElementById("claim_heading").innerText=selected_claim.selected;
 
 if(selected_claim.selected=="Call & Claim"){
     document.getElementById("call_icon").classList.remove('d-none');
+
+
+
+    
+
+
 }
 
 let policies = 0;
@@ -70,3 +76,4 @@ next.onclick = () => {
     localStorage.setItem('HospitalClaim', JSON.stringify(a));
 }
 window.onload = populate();
+
