@@ -1,5 +1,14 @@
 *{
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
+}
+body {
+    font-family: Palanquin;
+    font-style: normal;
+}
+button {
+    cursor: pointer;
 }
   .top_nav {
       background-color: #118592;

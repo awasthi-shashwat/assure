@@ -223,7 +223,7 @@ public class PolicyBookingsService {
             Set<Hospitals> hospitals = policy.getPolicy().getHospitals();
             for (Hospitals hospital :
                     hospitals) {
-                list.add(new HospitalLocationDTO(policy.getPolicyName(), hospital.getLocation().getName(), hospital.getName()));
+                list.add(new HospitalLocationDTO(policy.getBookingId(), policy.getPolicyName(), hospital.getLocation().getName(), hospital.getName()));
             }
 
         }
