@@ -54,7 +54,7 @@
                     </div>
 
                     <div>
-                        <p> <input type="checkbox"> I hereby clarifies that the documents submitted are valid and legitimate. incase of any issue i wiil be reseponsible for it.</p>                        
+                        <p> <input id="agreeCheck" type="checkbox" name="checkbox"> I hereby clarifies that the documents submitted are valid and legitimate. incase of any issue i wiil be reseponsible for it.</p>                        
                     </div>
                 </div>
 
@@ -65,12 +65,32 @@
                 </div>
 
             </form>
+
+            
         </div>
-       
+        <div id="processing">
+            <img src="../icons/rolling.svg" id="rolling" alt="">
+            <p>
+                Processing...
+            </p>
+        </div>
+        <div id="payment_success_section">
+            <img src="../icons/step4.svg" alt="" class="route_img wide">
+            <div id="content_success">
+                <p id="congrats">
+                    Your claim is successfully submitted !
+                </p>
+                <img src="../images/payment_success.PNG" id="success_img" alt="">
+                <p id="success_msg">
+                    Your policy has been booked successfully. For ensuring the complete health safety of yourself and your family go ahead and book an health insurance at the cheapest premium today!
+                </p>
+                <button id="paymentDone">Successful</button>
+            </div>
+        </div>
         
     </div>
     
-    
+    <script src="../scripts/directClaim3i.js"></script>
    
 </body>
 </html>

@@ -16,4 +16,6 @@ function addToTreatmentDetails(p){
     let openTreatmentDetails = JSON.parse(localStorage.getItem("treatmentDetails"));
     openTreatmentDetails.push(p);
     localStorage.setItem("treatmentDetails", JSON.stringify(openTreatmentDetails));
+
+    window.location = "./directClaim2.html";
 }
