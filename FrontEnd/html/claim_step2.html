@@ -9,11 +9,13 @@
 </head>
 <link rel="stylesheet" href="../css/hospital.css">
 <body>
-    <div class="top_nav"><a href="#"><img class="position-top_nav_arrow"  src="../images/Vector.svg" alt="left_arrow_button"></a><p class="text-center size-16 text-white position-top_nav_text d-inline">Hospital Claim</p></div>
 
+    <div class="top_nav"><a href="./claim_step1.html"><img class="position-top_nav_arrow"  src="../images/Vector.svg" alt="left_arrow_button"></a>
+        <p id="claim_heading" class="text-center size-16 text-white position-top_nav_text d-inline">Hospital Claim</p></div>
 
-    <img class="m-3"src="../images/1,2fill,3 Steps.svg" alt="step 2 navigation">
-       
+       <img id="nav_steps_img"class="m-3" src="../images/1,2fill,3 Steps.svg" alt="step 2 navigation">
+       <div id="form_claim" class="d-block" >
+    
     
 
 
@@ -30,7 +32,26 @@
    
    <div class="form_button_div">
    <a href="./claim_step1.html" class="buttonOutline"  role="button" >Back</a>
-   <a href="#" class="buttonfill"  role="button" >Next</a>
+   <a href="#" class="buttonfill" onclick="submit()" role="button" >Next</a>
    </div>
+   </form>
+</div>
+   <div id="processing" class="d-none">
+    <img src="../icons/rolling.svg" id="rolling" alt="">
+    <p class="ms-5 mt-3">
+        submitting...
+    </p>
+</div>
+<div id="content_success" class="d-none">
+    <p id="congrats" class="text-center">
+        Your claim is successfully <br> submitted !
+    </p>
+    <img src="../images/payment_success.PNG" id="success_img" alt="">
+    <p id="success_msg">
+        Your policy has been booked successfully. For ensuring the complete health safety of yourself and your family go ahead and book an health insurance at the cheapest premium today!
+    </p>
+    <button id="paymentDone">Successful</button>
+</div>
+<script src="../scripts/claimStep2.js"></script>
 </body>
 </html>

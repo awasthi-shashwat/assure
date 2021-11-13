@@ -121,3 +121,44 @@
   .margin-right-19 {
       margin-right: 15%;
   }
+ #processing{
+     position: relative;
+     top: 215px;
+    left: 90px;
+}
+
+#success_msg {
+    margin-top: 21px;
+    font-size: 14px;
+    line-height: 20px;
+    align-items: center;
+    text-align: center; 
+    color: #7B7E84;
+}
+#success_img {
+    margin-top: 40px;
+    margin-left:30px ;
+}
+#congrats {
+    margin-top: 51px;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 28px;
+    color: #7B7E84;
+}
+#paymentDone {
+    background: #118592;
+    border-radius: 8px;
+    outline: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 25px;
+    width: 280px;
+    height: 48px;
+    margin-top: 51px;
+}
+#content_success {
+    padding-inline: 45px;
+}
