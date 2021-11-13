@@ -82,15 +82,15 @@ body{
 }
 #upload-photo {
     opacity: 0;      
-    z-index: -1;
     margin: auto;
 }
 
 #navigateBut {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 6%;
-    }
+    margin-top: 10%;
+    margin-left: 1%;
+    display: flex;
+    justify-content: space-between;
+}
     #navigateBut button{
     background: none;
     border: none;
@@ -100,7 +100,7 @@ body{
     font-size: 16px;
     border-radius: 8px;
     cursor: pointer;
-    width: 160px;
+    width: 156px;
     height: 48px;
     border: 1px solid #118592;
 }
