@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class PolicyBookingController {
 
     @Autowired

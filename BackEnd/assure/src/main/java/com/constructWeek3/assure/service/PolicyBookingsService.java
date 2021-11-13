@@ -186,7 +186,14 @@ public class PolicyBookingsService {
         List<PolicyBookingsGetListDTO> list = modelMapper.map(policyBookings, new TypeToken<List<PolicyBookingsGetListDTO>>() {}.getType());
         for (PolicyBookingsGetListDTO policy :
                 list) {
+
             policy.setUserName(user.get().getUserName());
+
+            Calendar c = Calendar.getInstance();
+            c.setTime(policy.getBookingDate());
+            c.add(Calendar.YEAR, policy.getCoverTenure());
+            policy.setValidTillDate(c.getTime());
+
         }
         return list;
     }
