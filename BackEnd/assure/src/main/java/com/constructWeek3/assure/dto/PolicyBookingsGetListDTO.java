@@ -15,6 +15,7 @@ public class PolicyBookingsGetListDTO {
     private Long bookingId;
     private String userName;
     private Date bookingDate;
+    private Date validTillDate;
     private Float coverAmount;
     private Float premium;
     private Integer coverTenure;

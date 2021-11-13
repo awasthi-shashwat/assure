@@ -12,8 +12,14 @@ let membership_no = document.getElementById('membership_no');
 let claim_card = document.getElementById('claim_card');
 let claimCard = document.getElementById('claimCard');
 let exploreButt = document.getElementById('explore');
+let claimButt = document.getElementById('claim')
 
-exploreButt.onclick
+exploreButt.onclick = () => {
+    window.location = "./health_insurance.html";
+}
+claimButt.onclick = () => {
+    window.location = "./directClaim.html";
+}
 
 async function loadUser() {
     
