@@ -55,7 +55,7 @@ function loadNavbar() {
         window.location = "./profile.htm";
     }
     claimIcon.onclick = () => {
-        window.location = "./home_navigation.htm";
+        window.location = "./directClaim.html";
     }
     moreIcon.onclick = () => {
         window.location = "./more.htm";

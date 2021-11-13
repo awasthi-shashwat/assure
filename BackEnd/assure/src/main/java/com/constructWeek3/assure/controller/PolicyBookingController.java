@@ -1,5 +1,6 @@
 package com.constructWeek3.assure.controller;
 
+import com.constructWeek3.assure.dto.HospitalLocationDTO;
 import com.constructWeek3.assure.dto.MembersDTO;
 import com.constructWeek3.assure.dto.PolicyBookingInputDTO;
 import com.constructWeek3.assure.dto.PolicyBookingsGetListDTO;
@@ -13,6 +14,7 @@ import java.text.ParseException;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class PolicyBookingController {
 
     @Autowired
@@ -36,5 +38,10 @@ public class PolicyBookingController {
     @PostMapping("/booking/validate/member")
     public ResponseEntity<Boolean> validateMember(@RequestBody MembersDTO membersDTO) throws Exception{
         return new ResponseEntity<>(policyBookingsService.validateMember(membersDTO), HttpStatus.OK);
+    }
+
+    @GetMapping("/booking/hospital/{userId}")
+    public ResponseEntity<List<HospitalLocationDTO>> fetchHospitals(@PathVariable Long userId) {
+        return new ResponseEntity<>(policyBookingsService.fetchHospitals(userId), HttpStatus.FOUND);
     }
 }
