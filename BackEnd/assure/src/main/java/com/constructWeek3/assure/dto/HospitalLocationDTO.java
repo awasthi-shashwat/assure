@@ -13,7 +13,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class HospitalLocationDTO {
 
-//    private Long bookingId;
+    private Long bookingId;
     private String policyName;
     private String Location;
     private String Hospital;
