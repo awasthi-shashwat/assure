@@ -1,3 +1,6 @@
+
+
+
 function setHospitalClaim(){
     console.log("Hospitral claim");
  

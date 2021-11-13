@@ -26,6 +26,10 @@ body{
     padding: 5%;
 }
 
+.claimDiv a{
+    text-decoration: none;
+}
+
 #claimHead{
     display: flex;
 }
