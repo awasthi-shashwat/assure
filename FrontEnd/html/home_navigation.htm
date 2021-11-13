@@ -39,7 +39,7 @@
         </div>
         <!-- Display of #claimCard is made none, when claim would be there it would be enabled #claim_card won't be displayed -->
         <div id="claimCard">
-            <p class="policyName">
+            <p id="policyCard" class="policyName">
                 Latest Claim
             </p>
             <div id="upClaimCard">
@@ -105,3 +105,12 @@
 </body>
 </html>
 <script src="./../scripts/home.js"></script>
+<script type="module">
+    import {bottomNavbar, loadNavbar} from "../components/bottomNavbar.js";
+    let div = document.createElement('div');
+    div.innerHTML = bottomNavbar();
+    div.style.marginTop = "85%";
+    document.getElementById('main').appendChild(div);
+
+    loadNavbar();
+</script>
